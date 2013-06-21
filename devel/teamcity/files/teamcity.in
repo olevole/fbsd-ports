@@ -1,0 +1,43 @@
+#!/bin/sh
+# PROVIDE: teamcity
+# REQUIRE: NETWORKING SERVERS
+# BEFORE: DAEMON
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# teamcity_enable (bool):   Set to NO by default.
+#               Set it to YES to load teamcity agent and server on startup
+
+. /etc/rc.subr
+
+name="teamcity"
+rcvar=teamcity_enable
+start_cmd="teamcity_start"
+stop_cmd="teamcity_stop"
+
+teamcity5_user="${teamcity5_user:-"www"}"
+teamcity5_home="${teamcity5_home:-"%%LOCALBASE%%/TeamCity"}"
+
+teamcity_start()
+{
+    export JAVA_HOME=%%LOCALBASE%%/openjdk7
+    %%LOCALBASE%%/TeamCity/buildAgent/bin/agent.sh start
+    %%LOCALBASE%%/TeamCity/bin/teamcity-server.sh start
+}
+
+teamcity_stop()
+{
+    export JAVA_HOME=%%LOCALBASE%%/openjdk7
+    sh %%LOCALBASE%%/TeamCity/bin/teamcity-server.sh stop
+    sh %%LOCALBASE%%/TeamCity/buildAgent/bin/agent.sh stop
+}
+
+load_rc_config $name
+
+: ${teamcity_enable="NO"}
+
+run_rc_command "$1"
+
