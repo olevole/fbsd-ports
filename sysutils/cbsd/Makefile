@@ -1,9 +1,10 @@
-# $FreeBSD: head/sysutils/cbsd/Makefile 318992 2013-05-24 16:34:29Z az $
+# $FreeBSD: head/sysutils/cbsd/Makefile 323897 2013-07-29 17:55:03Z az $
 
 PORTNAME=	cbsd
 PORTVERSION=	9.2.1
 CATEGORIES=	sysutils
-MASTER_SITES=	GH
+MASTER_SITES=	http://www.bsdstore.ru/downloads/ \
+		GH
 
 MAINTAINER=	olevole@olevole.ru
 COMMENT=	Yet another FreeBSD Jail Management Utility
@@ -11,12 +12,17 @@ COMMENT=	Yet another FreeBSD Jail Management Utility
 USE_GITHUB=	yes
 GH_ACCOUNT=	olevole
 GH_PROJECT=	cbsd
-GH_COMMIT=	69e0a48
+GH_COMMIT=	68e0f95
 
 RUN_DEPENDS=	rsync:${PORTSDIR}/net/rsync \
 		sudo:${PORTSDIR}/security/sudo \
 		sqlite3:${PORTSDIR}/databases/sqlite3
 LIB_DEPENDS=	ssh2:${PORTSDIR}/security/libssh2
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	olevole
+GH_PROJECT=	cbsd
+GH_COMMIT=	68e0f95
 
 SUB_FILES=	pkg-message
 
