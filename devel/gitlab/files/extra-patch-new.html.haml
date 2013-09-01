@@ -1,0 +1,15 @@
+--- new.html.haml.orig	2013-07-24 16:39:00.000000000 +0400
++++ new.html.haml	2013-07-24 17:07:00.000000000 +0400
+@@ -6,12 +6,9 @@
+       %li.active
+         = link_to 'LDAP', '#tab-ldap', 'data-toggle' => 'tab'
+       %li
+-        = link_to 'Ordinary', '#tab-signin', 'data-toggle' => 'tab'
+     .tab-content
+       %div#tab-ldap.tab-pane.active
+         = render partial: 'devise/sessions/new_ldap'
+-      %div#tab-signin.tab-pane
+-        = render partial: 'devise/sessions/new_base'
+ 
+   - else
+     = render partial: 'devise/sessions/new_base'

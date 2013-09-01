@@ -1,0 +1,22 @@
+#!/bin/sh
+# $FreeBSD$
+
+PATH="/bin:/sbin:/usr/bin:/usr/sbin"
+
+if [ "$2" = "DEINSTALL" ]; then
+	rm -rf %%GIT_HOME%%
+	rm -rf %%WWWDIR%%/.bundle
+	rm -rf %%WWWDIR%%/.gem
+	rm -rf %%WWWDIR%%/gems
+	rm -rf %%WWWDIR%%/log
+	rm -rf %%WWWDIR%%/vendor
+	rm -rf %%WWWDIR%%/tmp
+	find %%WWWDIR%%/ -type f -name '.*' -d 1 | xargs rm
+fi
+
+if [ "$2" = "POST-DEINSTALL" ]; then
+	pw userdel %%GITLAB_USER%%
+	echo '==> You should manually remove the "gitlab" MySQL database and "gitlab@localhost" MySQL user.'
+fi
+
+exit 0

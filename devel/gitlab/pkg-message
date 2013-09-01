@@ -1,0 +1,19 @@
+*******************************************************
+
+In order to complete installation perform final steps:
+
+1. Check if Redis is enabled in rc.conf
+2. Check if MySQL server is enabled in rc.conf
+3. Add this to rc.conf:
+
+   gitlab_enable="YES"
+
+4. Run %%WWWDIR%%/distrib/gitlab_install.sh script
+5. Configure Nginx or Apache. See examples in
+   %%WWWDIR%%/distrib/nginx.example and
+   %%WWWDIR%%/distrib/apache.example
+6. Restart web server.
+7. Start GitLab with %%PREFIX%%/etc/rc.d/gitlab start
+
+*******************************************************
+

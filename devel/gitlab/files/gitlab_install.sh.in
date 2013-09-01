@@ -1,0 +1,30 @@
+#!/bin/sh
+
+if ! %%LOCALBASE%%/etc/rc.d/redis status
+then
+	echo 'Redis not running. Trying to start...'
+	%%LOCALBASE%%/etc/rc.d/redis start
+	if ! %%LOCALBASE%%/etc/rc.d/redis status
+	then
+		echo 'Can not start Redis! Please setup Redis properly and run this script again.'
+		exit
+	fi
+fi
+
+if ! %%LOCALBASE%%/etc/rc.d/mysql-server status
+then
+	echo 'MySQL server not running. Trying to start...'
+	%%LOCALBASE%%/etc/rc.d/mysql-server start
+	if ! %%LOCALBASE%%/etc/rc.d/redis status
+	then
+		echo 'Can not start MySQL server! Please setup MySQL properly and run this script again.'
+		exit
+	fi
+fi
+
+echo 'Creating MySQL DB and user (need MySQL root password)...'
+mysql -u root -p < %%WWWDIR%%/distrib/mysql_setup.sql
+
+echo 'Running GitLab setup...'
+cd %%WWWDIR%%
+sudo -u %%GITLAB_USER%% -H bundle exec rake gitlab:setup RAILS_ENV=production
