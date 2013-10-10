@@ -1,4 +1,4 @@
-# $FreeBSD: head/sysutils/fusefs-zip/Makefile 316355 2013-04-23 14:20:25Z bapt $
+# $FreeBSD: head/sysutils/fusefs-zip/Makefile 327772 2013-09-20 23:05:58Z bapt $
 
 PORTNAME=	fuse-zip
 PORTVERSION=	0.3.0
@@ -11,9 +11,9 @@ COMMENT=	FUSE filesystem to mount ZIP archives with write support
 LICENSE=	LGPL3
 
 LIB_DEPENDS=	zip:${PORTSDIR}/archivers/libzip
+BUILD_DEPENDS=	libzip>=0.11.1:${PORTSDIR}/archivers/libzip
 
-USE_GMAKE=	yes
-USES=		fuse pkgconfig
+USES=		gmake fuse pkgconfig
 
 PLIST_FILES=	bin/${PORTNAME}
 MAN1=		${PORTNAME}.1
@@ -21,6 +21,7 @@ PORTDOCS=	README TODO changelog
 
 OPTIONS_DEFINE=	DOCS
 
+NO_STAGE=	yes
 .include <bsd.port.options.mk>
 
 do-build:
