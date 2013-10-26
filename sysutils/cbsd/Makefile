@@ -17,7 +17,7 @@ LIB_DEPENDS=	ssh2:${PORTSDIR}/security/libssh2
 USE_GITHUB=	yes
 GH_ACCOUNT=	olevole
 GH_PROJECT=	cbsd
-GH_COMMIT=	ff05784
+GH_COMMIT=	fcaf7b5
 
 SUB_FILES=	pkg-message
 
@@ -32,7 +32,7 @@ IGNORE=	does not work on FreeBSD < 9.1
 .endif
 
 .if ${OSVERSION} < 902001
-RUN_DEPENDS+=  sysrc:${PORTSDIR}/sysutils/sysrc
+RUN_DEPENDS+=	sysrc:${PORTSDIR}/sysutils/sysrc
 .endif
 
 post-install:
