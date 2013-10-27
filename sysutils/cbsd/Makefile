@@ -19,7 +19,7 @@ LIB_DEPENDS=	ssh2:${PORTSDIR}/security/libssh2
 USE_GITHUB=	yes
 GH_ACCOUNT=	olevole
 GH_PROJECT=	cbsd
-GH_COMMIT=	0c7c636
+GH_COMMIT=	8edb285
 
 SUB_FILES=	pkg-message
 
