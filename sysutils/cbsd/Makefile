@@ -1,7 +1,7 @@
-# $FreeBSD: head/sysutils/cbsd/Makefile 323897 2013-07-29 17:55:03Z az $
+# $FreeBSD: head/sysutils/cbsd/Makefile 332271 2013-10-31 18:18:49Z vg $
 
 PORTNAME=	cbsd
-PORTVERSION=	9.2.3
+PORTVERSION=	9.2.5
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.bsdstore.ru/downloads/ \
 		GH
@@ -19,7 +19,7 @@ LIB_DEPENDS=	ssh2:${PORTSDIR}/security/libssh2
 USE_GITHUB=	yes
 GH_ACCOUNT=	olevole
 GH_PROJECT=	cbsd
-GH_COMMIT=	3cf50a9
+GH_COMMIT=	f39bd8f
 
 SUB_FILES=	pkg-message
 
