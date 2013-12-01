@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	gitlab
-PORTVERSION=	5.4.0
+PORTVERSION=	6.3.0
 CATEGORIES=	devel
 MASTER_SITES=	GH \
 		http://jb1.olevole.ru/
@@ -13,7 +13,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	gitlabhq
 GH_PROJECT=	gitlabhq
 GH_TAGNAME=	v${PORTVERSION}
-GH_COMMIT=	94a814d
+GH_COMMIT=	cf4f36d
 
 #BUILD_DEPENDS+=	gitolite:${PORTSDIR}/devel/gitolite
 
@@ -40,6 +40,7 @@ GITLAB_MYSQL_PASS=	gitlab
 
 #GIT_HOME=	${PREFIX}/git
 GIT_HOME=	/usr/home/git
+
 WWWDIR=		${GIT_HOME}/gitlab
 
 #GEMS_VERSION=	1.8.25
@@ -58,6 +59,8 @@ SUB_LIST=	GITLAB_USER=${GITLAB_USER} \
 USERS=		git
 GROUPS=		${GITLAB_GROUP}
 
+NO_STAGE=	yes
+
 .include <bsd.port.pre.mk>
 
 #post-patch:
@@ -70,35 +73,36 @@ do-build:
 	@${REINPLACE_CMD} -e 's|secure password|${GITLAB_MYSQL_PASS}|g' ${WRKSRC}/config/database.yml
 
 do-install:
-#	@pw useradd ${GITLAB_USER} -g ${GITLAB_GROUP} -d ${WWWDIR} -m -s /sbin/nologin -c 'GitLab'
-	@(mkdir -p ${WWWDIR}/.ssh && ${CHOWN} -R git:git ${WWWDIR})
+	@pw groupadd ${GITLAB_GROUP} ||true
+	@pw useradd ${GITLAB_USER} -g ${GITLAB_GROUP} -d ${WWWDIR} -m -s /sbin/nologin -c 'GitLab' ||true
+	@(mkdir -p ${WWWDIR}/.ssh && ${CHOWN} -R ${GITLAB_USER}:${GITLAB_USER} ${WWWDIR})
 	@(cd ${WRKSRC} && ${COPYTREE_SHARE} \* ${WWWDIR})
 	@${CHOWN} -R ${GITLAB_USER}:${GITLAB_GROUP} ${WWWDIR}
 	@su -m ${GITLAB_USER} -c "ssh-keygen -q -N '' -t rsa -f ${WWWDIR}/.ssh/id_rsa"
 	@${MKDIR} ${GIT_HOME}
-	@${CHOWN} git:git ${GIT_HOME}
-	@(rm -R ${LOCALBASE}/git && ln -s ${GIT_HOME} ${LOCALBASE}/)
+	@${CHOWN} ${GITLAB_USER}:${GITLAB_USER} ${GIT_HOME}
+#	@(rm -R ${LOCALBASE}/git && ln -s ${GIT_HOME} ${LOCALBASE}/)
 #	@(cd ${GIT_HOME} && su -m git -c "git clone -b gl-v320 https://github.com/gitlabhq/gitolite.git gitolite")
-	@(cd ${GIT_HOME} && su -m git -c "git clone https://github.com/gitlab-freebsd/gitlab-shell.git")
+	@(cd ${GIT_HOME} && su -m ${USERS} -c "git clone https://github.com/gitlab-freebsd/gitlab-shell.git")
 	@${FIND} -f ${WWWDIR} ${GIT_HOME}/gitlab-shell/ -type f | \
 	    (while read i; do \
 		if ( ${CAT} $$i | ${GREP} "\"/home/git" >/dev/null 2>&1 ); then \
 		${SED} -i.orig s:"/home/git:"/usr/home/git:g $$i; \
 		fi \
 	    done)
-	@(cd ${GIT_HOME}/gitlab-shell && su -m git -c "cp config.yml.example config.yml" && su -m git -c "ee config.yml" && su -m git -c "./bin/install")
-	@su -m git -c "${MKDIR} ${GIT_HOME}/bin"
-	@su -m git -c "sh -c echo "PATH=$$PATH:${GIT_HOME}/bin"" >> ${GIT_HOME}/.profile
-	@su -m git -c "sh -c echo "export PATH"" >> ${GIT_HOME}/.profile
+	@(cd ${GIT_HOME}/gitlab-shell && su -m ${USERS} -c "cp config.yml.example config.yml" && su -m ${USERS} -c "ee config.yml" && su -m ${USERS} -c "./bin/install")
+	@su -m ${USERS} -c "${MKDIR} ${GIT_HOME}/bin"
+	@su -m ${USERS} -c "sh -c echo "PATH=$$PATH:${GIT_HOME}/bin"" >> ${GIT_HOME}/.profile
+	@su -m ${USERS} -c "sh -c echo "export PATH"" >> ${GIT_HOME}/.profile
 #	@sudo -u git -H sh -c '${GIT_HOME}/gitolite/install -ln ${GIT_HOME}/bin'
 	@cp ${WWWDIR}/.ssh/id_rsa.pub ${GIT_HOME}/gitlab.pub
 	@${CHMOD} 0444 ${GIT_HOME}/gitlab.pub
 #	@su -m git -c "sh -c "PATH=${GIT_HOME}/bin:$$PATH; su -m git -c "sh -c "gitolite setup -pk ${GIT_HOME}/gitlab.pub""""
 #	@${CHMOD} 750 ${GIT_HOME}/.gitolite/
-	@${CHOWN} -R git:git ${GIT_HOME}
+	@${CHOWN} -R ${GITLAB_USER}:${GITLAB_USER} ${GIT_HOME}
 	@${CHMOD} -R ug+rwX,o-rwx ${GIT_HOME}/repositories/
-	@${CHOWN} -R git:git ${GIT_HOME}/repositories/
-	@su -m git -c "find ${GIT_HOME}/repositories -type d -print0 | xargs -0 chmod g+s"
+	@${CHOWN} -R ${GITLAB_USER}:${GITLAB_USER} ${GIT_HOME}/repositories/
+	@su -m ${USERS} -c "find ${GIT_HOME}/repositories -type d -print0 | xargs -0 chmod g+s"
 	@su -m ${GITLAB_USER} -c "ssh-keyscan -t rsa,dsa localhost" >> ${WWWDIR}/.ssh/known_hosts
 	@su -m ${GITLAB_USER} -c "ssh-keyscan -t rsa,dsa 127.0.0.1" >> ${WWWDIR}/.ssh/known_hosts
 	@${CHOWN} -R ${GITLAB_USER} ${WWWDIR}/log ${WWWDIR}/tmp
@@ -106,6 +110,7 @@ do-install:
 	@su -m ${GITLAB_USER} -c "${MKDIR} ${WWWDIR}/gitlab-satellites"
 #	@gem19 install bundler
 #	@gem19 install charlock_holmes --version '0.6.9'
+	@${REINPLACE_CMD} -e 's|source "https://rubygems.org"|source "http://rubygems.org"|g' ${WWWDIR}/Gemfile
 	@(cd ${WWWDIR} && su -m ${GITLAB_USER} -c "bundle install --deployment --without development test postgres")
 	@${MKDIR} ${WWWDIR}/distrib
 	@${CP} ${WRKDIR}/mysql_setup.sql ${WWWDIR}/distrib/
