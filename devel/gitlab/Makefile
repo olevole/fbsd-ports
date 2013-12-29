@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	gitlab
-PORTVERSION=	6.3.0
+PORTVERSION=	6.4.3
 CATEGORIES=	devel
 MASTER_SITES=	GH \
 		http://jb1.olevole.ru/
@@ -13,7 +13,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	gitlabhq
 GH_PROJECT=	gitlabhq
 GH_TAGNAME=	v${PORTVERSION}
-GH_COMMIT=	cf4f36d
+GH_COMMIT=	97e9fe2
 
 #BUILD_DEPENDS+=	gitolite:${PORTSDIR}/devel/gitolite
 
@@ -31,6 +31,8 @@ LIB_DEPENDS=	icuuc:${PORTSDIR}/devel/icu
 USE_RUBY=	yes
 USE_PYTHON=	2.7
 USE_MYSQL=	server
+USE_GNOME=	libxslt
+USE_GCC=	yes
 
 GITLAB_USER=	git
 GITLAB_GROUP=	git
