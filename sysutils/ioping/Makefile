@@ -1,8 +1,8 @@
 # Created by: Oleg Ginzburg <olevole@olevole.ru>
-# $FreeBSD: head/sysutils/ioping/Makefile 323543 2013-07-23 17:32:48Z pawel $
+# $FreeBSD: head/sysutils/ioping/Makefile 327772 2013-09-20 23:05:58Z bapt $
 
 PORTNAME=	ioping
-PORTVERSION=	0.7
+PORTVERSION=	0.8
 CATEGORIES=	sysutils
 MASTER_SITES=	GOOGLE_CODE
 
@@ -24,7 +24,7 @@ do-build:
 	${SETENV} ${MAKE_ENV} ${CC} ${CFLAGS} -DVERSION=${PORTVERSION} ioping.c -o ioping
 
 do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/ioping ${PREFIX}/bin
-	${INSTALL_MAN} ${WRKSRC}/ioping.1 ${MAN1PREFIX}/man/man1
+	${INSTALL_PROGRAM} ${WRKSRC}/ioping ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/ioping.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
 
 .include <bsd.port.mk>
