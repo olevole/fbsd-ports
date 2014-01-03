@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	gitlab
-PORTVERSION=	6.3.0
+PORTVERSION=	6.3.1
 CATEGORIES=	devel
 MASTER_SITES=	GH \
 		http://jb1.olevole.ru/
@@ -13,7 +13,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	gitlabhq
 GH_PROJECT=	gitlabhq
 GH_TAGNAME=	v${PORTVERSION}
-GH_COMMIT=	cf4f36d
+GH_COMMIT=	09c6f66
 
 #BUILD_DEPENDS+=	gitolite:${PORTSDIR}/devel/gitolite
 
@@ -21,6 +21,7 @@ RUN_DEPENDS+=	bash:${PORTSDIR}/shells/bash \
 		sudo:${PORTSDIR}/security/sudo \
 		redis-server:${PORTSDIR}/databases/redis \
 		${LOCALBASE}/bin/gem:${PORTSDIR}/devel/ruby-gems \
+		rubygem-rake>=0:${PORTSDIR}/devel/rubygem-rake \
 		${LOCALBASE}/bin/bundle:${PORTSDIR}/sysutils/rubygem-bundler \
 		git:${PORTSDIR}/devel/git
 #		charlock_holmes:${PORTSDIR}/textproc/rubygem-charlock_holmes \
@@ -31,6 +32,8 @@ LIB_DEPENDS=	icuuc:${PORTSDIR}/devel/icu
 USE_RUBY=	yes
 USE_PYTHON=	2.7
 USE_MYSQL=	server
+USE_GNOME=	libxslt
+USE_GCC=	yes
 
 GITLAB_USER=	git
 GITLAB_GROUP=	git
@@ -73,6 +76,7 @@ do-build:
 	@${REINPLACE_CMD} -e 's|secure password|${GITLAB_MYSQL_PASS}|g' ${WRKSRC}/config/database.yml
 
 do-install:
+#	${LN} -sf ${PREFIX}/bin/bash /bin/bash
 	@pw groupadd ${GITLAB_GROUP} ||true
 	@pw useradd ${GITLAB_USER} -g ${GITLAB_GROUP} -d ${WWWDIR} -m -s /sbin/nologin -c 'GitLab' ||true
 	@(mkdir -p ${WWWDIR}/.ssh && ${CHOWN} -R ${GITLAB_USER}:${GITLAB_USER} ${WWWDIR})
