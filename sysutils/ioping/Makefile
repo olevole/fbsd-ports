@@ -1,5 +1,5 @@
 # Created by: Oleg Ginzburg <olevole@olevole.ru>
-# $FreeBSD: head/sysutils/ioping/Makefile 327772 2013-09-20 23:05:58Z bapt $
+# $FreeBSD: head/sysutils/ioping/Makefile 338575 2014-01-03 19:31:31Z jgh $
 
 PORTNAME=	ioping
 PORTVERSION=	0.8
@@ -11,13 +11,9 @@ COMMENT=	Simple disk I/0 latency measuring tool
 
 LICENSE=	GPLv3
 
-MAN1=		ioping.1
-PLIST_FILES=	bin/ioping
+PLIST_FILES=	bin/ioping man/man1/ioping.1.gz
 
 MAKE_ENV=	VERSION=${PORTVERSION}
-
-# for the benefit of <80000
-CFLAGS+=	-lm
 
 do-build:
 	cd ${WRKSRC}; \
