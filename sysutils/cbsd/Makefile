@@ -19,7 +19,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	olevole
 GH_PROJECT=	cbsd
 GH_TAGNAME=	10.0.2
-GH_COMMIT=	f0522a5
+GH_COMMIT=	6b5ba3d
 
 USE_RC_SUBR=	cbsdd cbsdrsyncd
 
