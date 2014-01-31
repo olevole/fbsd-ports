@@ -1,10 +1,9 @@
-# $FreeBSD: head/sysutils/cbsd/Makefile 338386 2014-01-01 18:54:00Z danilo $
+# $FreeBSD: sysutils/cbsd/Makefile 341642 2014-01-28 17:09:48Z az $
 
 PORTNAME=	cbsd
-PORTVERSION=	10.0.1
+PORTVERSION=	10.0.2
 CATEGORIES=	sysutils
-MASTER_SITES=	http://www.bsdstore.ru/downloads/ \
-		GH
+MASTER_SITES=	GH
 
 MAINTAINER=	olevole@olevole.ru
 COMMENT=	Yet another FreeBSD Jail Management Utility
@@ -19,7 +18,10 @@ LIB_DEPENDS=	libssh2.so:${PORTSDIR}/security/libssh2
 USE_GITHUB=	yes
 GH_ACCOUNT=	olevole
 GH_PROJECT=	cbsd
-GH_COMMIT=	ff6e7ea
+GH_TAGNAME=	10.0.2
+GH_COMMIT=	f0522a5
+
+USE_RC_SUBR=	cbsdd cbsdrsyncd
 
 SUB_FILES=	pkg-message
 PLIST_FILES+=	man/man8/cbsd.8.gz
@@ -27,6 +29,9 @@ PLIST_FILES+=	man/man8/cbsd.8.gz
 CBSD_HOME?=	${PREFIX}/cbsd
 
 .include <bsd.port.pre.mk>
+
+USERS=	${PORTNAME}
+GROUPS=	${PORTNAME}
 
 .if ${OSVERSION} < 901000
 IGNORE=	does not work on FreeBSD < 9.1
