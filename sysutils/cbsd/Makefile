@@ -1,9 +1,10 @@
-# $FreeBSD: sysutils/cbsd/Makefile 341642 2014-01-28 17:09:48Z az $
+# $FreeBSD: head/sysutils/cbsd/Makefile 345675 2014-02-22 19:45:34Z vg $
 
 PORTNAME=	cbsd
-PORTVERSION=	10.0.2
+PORTVERSION=	10.0.3
 CATEGORIES=	sysutils
-MASTER_SITES=	GH
+MASTER_SITES=	http://www.bsdstore.ru/downloads/ \
+		GH
 
 MAINTAINER=	olevole@olevole.ru
 COMMENT=	Yet another FreeBSD Jail Management Utility
@@ -18,8 +19,7 @@ LIB_DEPENDS=	libssh2.so:${PORTSDIR}/security/libssh2
 USE_GITHUB=	yes
 GH_ACCOUNT=	olevole
 GH_PROJECT=	cbsd
-GH_TAGNAME=	10.0.2
-GH_COMMIT=	6b5ba3d
+GH_COMMIT=	2bb261e
 
 USE_RC_SUBR=	cbsdd cbsdrsyncd
 
