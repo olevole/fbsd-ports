@@ -1,7 +1,7 @@
 # $FreeBSD: head/sysutils/cbsd/Makefile 345675 2014-02-22 19:45:34Z vg $
 
 PORTNAME=	cbsd
-PORTVERSION=	10.0.3
+PORTVERSION=	10.0.4
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.bsdstore.ru/downloads/ \
 		GH
@@ -19,7 +19,7 @@ LIB_DEPENDS=	libssh2.so:${PORTSDIR}/security/libssh2
 USE_GITHUB=	yes
 GH_ACCOUNT=	olevole
 GH_PROJECT=	cbsd
-GH_COMMIT=	2bb261e
+GH_COMMIT=	a5d3690
 
 USE_RC_SUBR=	cbsdd cbsdrsyncd
 
