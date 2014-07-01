@@ -1,0 +1,2 @@
+@exec chown -Rv %%WWWOWN%%:%%WWWGRP%% %D/%%WWWDIR%%
+@exec chmod -ug+w %D/%%WWWDIR%%/application/view
