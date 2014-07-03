@@ -7,10 +7,10 @@ CATEGORIES=	sysutils www
 MASTER_SITES=	http://www.bacula-web.org/files/bacula-web.org/downloads/
 EXTRACT_SUFX=	.tgz
 
-LICENSE=	GPLv2
-
 MAINTAINER=	dan@langille.org
 COMMENT=	Bacula-web provides a summarized output of Bacula jobs
+
+LICENSE=	GPLv2
 
 NO_BUILD=	yes
 USE_PHP=	gd gettext session
@@ -49,15 +49,15 @@ do-install:
 	@${ECHO} "Installing in ${BACULAWEB_HOME}"
 	${MKDIR} ${STAGEDIR}${BACULAWEB_HOME}
 	${CP} -R ${WRKSRC}/* ${STAGEDIR}${BACULAWEB_HOME}
-	${CHOWN} -R ${WWWOWN}:${WWWGRP} ${STAGEDIR}${BACULAWEB_HOME}
-	${CHMOD} -R ug+w ${STAGEDIR}${BACULAWEB_HOME}/application/view/cache
 
 post-install:
+	${ECHO_CMD} '@owner www' > ${TMPPLIST}
+	${ECHO_CMD} '@group www' >> ${TMPPLIST}
 	@${FIND} -s ${STAGEDIR}${BACULAWEB_HOME} -not -type d | ${SORT} | \
 	${SED} -e 's#^${STAGEDIR}${PREFIX}/##' >> ${TMPPLIST}
 	@${FIND} ${STAGEDIR}${BACULAWEB_HOME} -type d | ${SORT} -r | \
 	${SED} -e 's,^${STAGEDIR}${PREFIX}/,@dirrm ,' >> ${TMPPLIST}
-	${CAT} ${PKGDIR}/pkg-plist-chunk >>${TMPPLIST} ;
-	@${CAT} ${PKGMESSAGE}
+	${ECHO_CMD} '@owner' >> ${TMPPLIST}
+	${ECHO_CMD} '@group' >> ${TMPPLIST}
 
 .include <bsd.port.mk>
