@@ -47,9 +47,10 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/cbsdsh/cbsd ${STAGEDIR}${PREFIX}/bin
 
 
+
 post-install:
 	${ECHO_CMD} '@mode 500' > ${TMPPLIST}
-	${ECHO_CMD} 'bin/cbsdsh/cbsd' >> ${TMPPLIST}
+	${ECHO_CMD} 'bin/cbsd' >> ${TMPPLIST}
 	${ECHO_CMD} '@mode' >> ${TMPPLIST}
 	@${FIND} -s ${STAGEDIR}${CBSD_HOME} -not -type d | ${SORT} | \
 	${SED} -e 's#^${STAGEDIR}${PREFIX}/##' >> ${TMPPLIST}
