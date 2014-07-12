@@ -46,8 +46,6 @@ do-install:
 	@${INSTALL_MAN} ${WRKSRC}/man/cbsd.8 ${STAGEDIR}${PREFIX}/man/man8/cbsd.8
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/cbsdsh/cbsd ${STAGEDIR}${PREFIX}/bin
 
-
-
 post-install:
 	${ECHO_CMD} '@mode 500' > ${TMPPLIST}
 	${ECHO_CMD} 'bin/cbsd' >> ${TMPPLIST}
