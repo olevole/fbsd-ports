@@ -1,0 +1,7 @@
+@mode 500
+@group cbsd
+@owner cbsd
+bin/cbsd
+@owner
+@group
+@mode
