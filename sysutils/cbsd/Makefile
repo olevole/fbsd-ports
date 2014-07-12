@@ -17,7 +17,7 @@ LIB_DEPENDS=	libssh2.so:${PORTSDIR}/security/libssh2 \
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	olevole
-GH_COMMIT=	4707c9e
+GH_COMMIT=	918bffa
 
 USE_RC_SUBR=	cbsdd cbsdrsyncd
 
