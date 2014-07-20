@@ -1,4 +1,4 @@
-# $FreeBSD: head/sysutils/cbsd/Makefile 361426 2014-07-10 07:39:26Z koobs $
+# $FreeBSD: head/sysutils/cbsd/Makefile 361672 2014-07-13 11:38:47Z rakuco $
 
 PORTNAME=	cbsd
 PORTVERSION=	10.0.6
