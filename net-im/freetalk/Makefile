@@ -1,22 +1,24 @@
 # Created by: Oleg Ginzburg  (olevole@olevole.ru)
-# $FreeBSD: head/net-im/freetalk/Makefile 317503 2013-05-06 10:22:41Z bapt $
+# $FreeBSD: head/net-im/freetalk/Makefile 366777 2014-08-31 15:17:49Z tijl $
 
 PORTNAME=	freetalk
-PORTVERSION=	3.2
-PORTREVISION=	2
+PORTVERSION=	4.0
 CATEGORIES=	net-im
-MASTER_SITES=	SAVANNAH/freetalk \
-		http://itdev.spb.ru/mirror/
 
 MAINTAINER=	olevole@olevole.ru
 COMMENT=	GNU console based Jabber client
 
-OPTIONS_DEFINE=	BEEP NLS
-BEEP_DESC=	Use beep program
+OPTIONS_DEFINE=	NLS
 
-LIB_DEPENDS=	loudmouth-1.0:${PORTSDIR}/net-im/loudmouth
-BUILD_DEPENDS=	guile>=1.8.6:${PORTSDIR}/lang/guile
-RUN_DEPENDS=	guile>=1.8.6:${PORTSDIR}/lang/guile
+LIB_DEPENDS=	libloudmouth-1.so:${PORTSDIR}/net-im/loudmouth \
+		libcurl.so:${PORTSDIR}/ftp/curl
+BUILD_DEPENDS=	guile>=2.0:${PORTSDIR}/lang/guile2
+RUN_DEPENDS=	guile>=2.0:${PORTSDIR}/lang/guile2 \
+		curl:${PORTSDIR}/ftp/curl
+USE_GITHUB=	yes
+GH_ACCOUNT=	GNUFreetalk
+GH_TAGNAME=	v${PORTVERSION}rc6
+GH_COMMIT=	3c89cae
 
 USES=		pkgconfig
 USE_GNOME=	glib20
@@ -24,22 +26,13 @@ GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
-MAN1=		freetalk.1
-INFO=		freetalk
+OPTIONS_SUB=	yes
 
-.include <bsd.port.options.mk>
+NLS_USES=	gettext
+NLS_CONFIGURE_WITH=libintl-prefix=${LOCALBASE}
+NLS_CONFIGURE_OFF= --disable-nls
 
-.if ${PORT_OPTIONS:MNLS}
-PLIST_SUB+=     NLS=""
-USES+=		gettext
-CONFIGURE_ARGS= --with-libintl-prefix=${LOCALBASE}
-.else
-CONFIGURE_ARGS+=--disable-nls
-PLIST_SUB+=     NLS="@comment "
-.endif
-
-.if ${PORT_OPTIONS:MBEEP}
-RUN_DEPENDS+=	${LOCALBASE}/bin/beep:${PORTSDIR}/audio/beep
-.endif
+pre-configure:
+	cd ${WRKSRC} && /bin/sh ./autogen.sh
 
 .include <bsd.port.mk>

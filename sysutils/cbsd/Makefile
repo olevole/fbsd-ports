@@ -1,7 +1,8 @@
-# $FreeBSD: head/sysutils/cbsd/Makefile 361672 2014-07-13 11:38:47Z rakuco $
+# $FreeBSD: head/sysutils/cbsd/Makefile 369858 2014-10-02 19:57:26Z amdmi3 $
 
 PORTNAME=	cbsd
-PORTVERSION=	10.0.6
+PORTVERSION=	10.1.1
+PORTREVISION=	1
 CATEGORIES=	sysutils
 
 MAINTAINER=	olevole@olevole.ru
@@ -17,7 +18,8 @@ LIB_DEPENDS=	libssh2.so:${PORTSDIR}/security/libssh2 \
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	olevole
-GH_COMMIT=	cac57bb
+GH_TAGNAME=	v${PORTVERSION}
+GH_COMMIT=	1a5ce04
 
 USE_RC_SUBR=	cbsdd cbsdrsyncd
 
@@ -31,26 +33,22 @@ CBSD_HOME?=	${PREFIX}/cbsd
 USERS=	${PORTNAME}
 GROUPS=	${PORTNAME}
 
-.if ${OSVERSION} < 901000
-IGNORE=	does not support FreeBSD versions < 9.1
-.endif
-
-.if ${OSVERSION} < 902001
-RUN_DEPENDS+=	sysrc:${PORTSDIR}/sysutils/sysrc
+.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1000000
+IGNORE=	does not support FreeBSD versions < 10.0
 .endif
 
 do-install:
 	@${ECHO} "Installing in ${CBSD_HOME}"
 	${MKDIR} ${STAGEDIR}${CBSD_HOME}
-	${CP} -R ${WRKSRC}/* ${STAGEDIR}${CBSD_HOME}
-	@${INSTALL_MAN} ${WRKSRC}/man/cbsd.8 ${STAGEDIR}${PREFIX}/man/man8/cbsd.8
+	${CP} -a ${WRKSRC}/ ${STAGEDIR}${CBSD_HOME}
+	${INSTALL_MAN} ${WRKSRC}/man/cbsd.8 ${STAGEDIR}${PREFIX}/man/man8/cbsd.8
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/cbsdsh/cbsd ${STAGEDIR}${PREFIX}/bin
 
 post-install:
 	${CAT} ${PKGDIR}/pkg-plist-chunk > ${TMPPLIST} ;
 	@${FIND} -s ${STAGEDIR}${CBSD_HOME} -not -type d | ${SORT} | \
 	${SED} -e 's#^${STAGEDIR}${PREFIX}/##' >> ${TMPPLIST}
-	@${FIND} ${STAGEDIR}${CBSD_HOME} -type d | ${SORT} -r | \
-	${SED} -e 's,^${STAGEDIR}${PREFIX}/,@dirrm ,' >> ${TMPPLIST}
+	@${MKDIR} ${STAGEDIR}${PREFIX}/libexec/bsdconfig
+	@${LN} -sf ${CBSD_HOME}/share/bsdconfig/cbsd ${STAGEDIR}${PREFIX}/libexec/bsdconfig/cbsd
 
 .include <bsd.port.post.mk>
