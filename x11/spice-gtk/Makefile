@@ -12,8 +12,8 @@ LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
 
 LICENSE=	GPLv2
 
-CONFIGURE_ENV=	SSL_CFLAGS="-I${OPENSSLINC}" \
-		SSL_LIBS="-L${OPENSSLLIB}"
+#CONFIGURE_ENV=	SSL_CFLAGS="-I${OPENSSLINC}" \
+#		SSL_LIBS="-L${OPENSSLLIB}"
 
 USE_XORG=	pixman
 USE_GNOME=	gnomeprefix gtk20 gtk30 intltool introspection
