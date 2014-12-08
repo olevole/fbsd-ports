@@ -24,7 +24,7 @@ USE_LDCONFIG=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 
-CONFIGURE_ARGS=	--with-audio=no --with-openssl=${OPENSSLBASE}
+CONFIGURE_ARGS=	--with-audio=no
 INSTALL_TARGET=	install-strip
 
 .include <bsd.port.mk>
