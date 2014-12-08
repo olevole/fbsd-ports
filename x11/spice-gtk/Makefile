@@ -1,3 +1,5 @@
+# Created by: olevole@olevole.ru
+# $FreeBSD:$
 PORTNAME=	spice-gtk
 PORTVERSION=	0.26
 CATEGORIES=	devel gnome
@@ -10,6 +12,9 @@ LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
 
 LICENSE=	GPLv2
 
+CONFIGURE_ENV=	SSL_CFLAGS="-I${OPENSSLINC}" \
+		SSL_LIBS="-L${OPENSSLLIB}"
+
 USE_XORG=	pixman
 USE_GNOME=	gnomeprefix gtk20 gtk30 intltool introspection
 USES=		gmake libtool pkgconfig python tar:bzip2
@@ -19,7 +24,7 @@ USE_LDCONFIG=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 
-CONFIGURE_ARGS=	--with-audio=no
+CONFIGURE_ARGS=	--with-audio=no --with-openssl=${OPENSSLBASE}
 INSTALL_TARGET=	install-strip
 
 .include <bsd.port.mk>
