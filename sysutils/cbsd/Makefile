@@ -1,8 +1,7 @@
-# $FreeBSD: head/sysutils/cbsd/Makefile 369858 2014-10-02 19:57:26Z amdmi3 $
+# $FreeBSD: head/sysutils/cbsd/Makefile 375188 2014-12-21 21:09:57Z amdmi3 $
 
 PORTNAME=	cbsd
-PORTVERSION=	10.1.1
-PORTREVISION=	1
+PORTVERSION=	10.1.2
 CATEGORIES=	sysutils
 
 MAINTAINER=	olevole@olevole.ru
@@ -19,7 +18,7 @@ LIB_DEPENDS=	libssh2.so:${PORTSDIR}/security/libssh2 \
 USE_GITHUB=	yes
 GH_ACCOUNT=	olevole
 GH_TAGNAME=	v${PORTVERSION}
-GH_COMMIT=	1a5ce04
+GH_COMMIT=	e4fa984
 
 USE_RC_SUBR=	cbsdd cbsdrsyncd
 

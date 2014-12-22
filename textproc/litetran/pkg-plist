@@ -1,22 +1,7 @@
-bin/qdevelop
-%%PORTDOCS%%%%DOCSDIR%%/ChangeLog.txt
-%%PORTDOCS%%%%DOCSDIR%%/README.txt
-share/pixmaps/qdevelop.png
-%%NLS%%%%DATADIR%%/translations/QDevelop_Chinese.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_Czech.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_Dutch.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_French.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_German.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_Hungarian.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_Italian.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_Japanese.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_Polish.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_Portuguese.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_Russian.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_Spanish.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_Turkish.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_Ukrainian.qm
-%%NLS%%%%DATADIR%%/translations/QDevelop_Vietnamese.qm
-%%NLS%%@dirrm %%DATADIR%%/translations
-%%NLS%%@dirrm %%DATADIR%%
-%%PORTDOCS%%@dirrm %%DOCSDIR%%
+bin/litetran
+share/applications/litetran.desktop
+share/litetran/i18n/about/Russian.html
+share/litetran/i18n/about/English.html
+share/litetran/i18n/Russian.qm
+share/litetran/i18n/English.qm
+share/pixmaps/litetran.png

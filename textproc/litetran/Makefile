@@ -1,24 +1,26 @@
 # $FreeBSD: $
 
 PORTNAME=	litetran
-PORTVERSION=	1.2
+PORTVERSION=	1.3
 CATEGORIES=	x11 textproc
 MASTER_SITES=	GH
-WRKSRC=		${WRKDIR}/${PORTNAME}
 
 MAINTAINER=	olevole@olevole.ru
-COMMENT=	LiteTran is tiny program for text translation.
+COMMENT=	LiteTran is a tiny GUI for text translation
+
+LICENSE=	GPLv3
+
+WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
+
+RUN_DEPENDS+=   ${LOCALBASE}/libdata/pkgconfig/dri.pc:${PORTSDIR}/graphics/dri
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	flareguner
 GH_PROJECT=	${POSTNAME}
-GH_COMMIT=	2d2c9bd
+GH_TAGNAME=	${PORTVERSION}
+GH_COMMIT=	d099aa9
 
-USE_QT5=	core widgets network multimedia linguisttools #11Extras
-USES=		cmake
-
-#STRIP_FILES=	bin/${PORTNAME}
-
-.include <bsd.port.options.mk>
+USE_QT5=	core widgets network multimedia linguisttools x11extras
+USES=		cmake:outsource
 
 .include <bsd.port.mk>
