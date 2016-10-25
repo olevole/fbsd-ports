@@ -1,8 +1,8 @@
 # Created by: olevole@olevole.ru
-# $FreeBSD: head/deskutils/spice-gtk/Makefile 393429 2015-08-02 15:03:19Z tijl $
+# $FreeBSD: head/deskutils/spice-gtk/Makefile 424123 2016-10-17 15:15:07Z marino $
 
 PORTNAME=	spice-gtk
-PORTVERSION=	0.30
+PORTVERSION=	0.33
 CATEGORIES?=	deskutils gnome
 MASTER_SITES=	http://www.spice-space.org/download/gtk/
 
@@ -13,32 +13,33 @@ LICENSE=	GPLv2
 
 USE_XORG=	pixman
 USE_GNOME=	gnomeprefix gtk20 gtk30 intltool introspection:build
-USES=		cpe gmake jpeg libtool pkgconfig tar:bzip2 pathfix
+USES=		autoreconf cpe gmake jpeg libtool pkgconfig tar:bzip2 \
+		python ssl localbase:ldflags
 CPE_VENDOR=	redhat
 
-BUILD_DEPENDS=	spice-protocol>=0.12.10:${PORTSDIR}/devel/spice-protocol \
-		${PYTHON_PKGNAMEPREFIX}pyparsing>=2.0.1:${PORTSDIR}/devel/py-pyparsing
+BUILD_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol \
+		${PYTHON_PKGNAMEPREFIX}pyparsing>=2.0.1:devel/py-pyparsing
+RUN_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol
 
 .if defined(SPICE_SLAVE)
+PORTREVISION=	1
 CATEGORIES+=	python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
-BUILD_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}gtk2>=0:${PORTSDIR}/x11-toolkits/py-gtk2
-RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}gtk2>=0:${PORTSDIR}/x11-toolkits/py-gtk2
+BUILD_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}gtk2>=0:x11-toolkits/py-gtk2
+RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}gtk2>=0:x11-toolkits/py-gtk2
 CONFIGURE_ARGS+=	--with-python
-PLIST_FILES+=	%%PYTHON_SITELIBDIR%%/SpiceClientGtk.a \
-		%%PYTHON_SITELIBDIR%%/SpiceClientGtk.so
-USES+=	python
 .endif
 
-CONFIGURE_ENV+=	SSL_CFLAGS=-I${OPENSSLINC} \
-		SSL_LIBS="-L${OPENSSLLIB} -lcrypto -lssl"
+SPICE_SSL_CFLAGS=	-I${OPENSSLINC}
+SPICE_SSL_LIBS=	-L${OPENSSLLIB} -lcrypto -lssl
+CONFIGURE_ENV+=	SSL_CFLAGS="${SPICE_SSL_CFLAGS}" SSL_LIBS="${SPICE_SSL_LIBS}" \
+		OPENSSL_CFLAGS="${SPICE_SSL_CFLAGS}" OPENSSL_LIBS="${SPICE_SSL_LIBS}"
 
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
-USE_OPENSSL=	yes
 
-CPPFLAGS+=	-I${LOCALBASE}/include
-LDFLAGS+=	-L${LOCALBASE}/lib
+# we can't use pathfix with USES=autoreconf
+MAKE_ARGS=	pkgconfigdir="$(PREFIX)/libdata/pkgconfig"
 
 INSTALL_TARGET=	install-strip
 
@@ -55,12 +56,12 @@ OPTIONS_SINGLE_AUDIO=	GSTREAMER PULSEAUDIO NOAUDIO
 NOAUDIO_DESC=		Disable audio backend
 
 GSTREAMER_CONFIGURE_ON=	--with-audio=gstreamer
-GSTREAMER_USE=	gstreamer=yes
+GSTREAMER_USE=	GSTREAMER1=yes
 PULSEAUDIO_CONFIGURE_ON=	--with-audio=pulse
-PULSEAUDIO_LIB_DEPENDS=		libpulse.so:${PORTSDIR}/audio/pulseaudio
+PULSEAUDIO_LIB_DEPENDS=		libpulse.so:audio/pulseaudio
 PULSEAUDIO_CONFIGURE_ENABLE=	pulse
 NOAUDIO_CONFIGURE_ON=		--with-audio=no
 SASL_CONFIGURE_WITH=		sasl=yes
-SASL_LIB_DEPENDS=		libsasl2.so:${PORTSDIR}/security/cyrus-sasl2
+SASL_LIB_DEPENDS=		libsasl2.so:security/cyrus-sasl2
 
 .include <bsd.port.mk>

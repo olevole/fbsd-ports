@@ -11,9 +11,11 @@ COMMENT=	GNU console based Jabber client
 OPTIONS_DEFINE=	NLS
 
 LIB_DEPENDS=	libloudmouth-1.so:${PORTSDIR}/net-im/loudmouth \
-		libcurl.so:${PORTSDIR}/ftp/curl
-BUILD_DEPENDS=	guile>=2.0:${PORTSDIR}/lang/guile2
-RUN_DEPENDS=	guile>=2.0:${PORTSDIR}/lang/guile2 \
+		libcurl.so:${PORTSDIR}/ftp/curl \
+		libguile-2.0.so:lang/guile2
+
+BUILD_DEPENDS=	guile:${PORTSDIR}/lang/guile2
+RUN_DEPENDS=	guile:${PORTSDIR}/lang/guile2 \
 		curl:${PORTSDIR}/ftp/curl
 USE_GITHUB=	yes
 GH_ACCOUNT=	GNUFreetalk
