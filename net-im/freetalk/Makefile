@@ -2,7 +2,7 @@
 # $FreeBSD: head/net-im/freetalk/Makefile 366777 2014-08-31 15:17:49Z tijl $
 
 PORTNAME=	freetalk
-PORTVERSION=	4.0
+PORTVERSION=	4.1
 CATEGORIES=	net-im
 
 MAINTAINER=	olevole@olevole.ru
@@ -17,8 +17,8 @@ RUN_DEPENDS=	guile>=2.0:${PORTSDIR}/lang/guile2 \
 		curl:${PORTSDIR}/ftp/curl
 USE_GITHUB=	yes
 GH_ACCOUNT=	GNUFreetalk
-GH_TAGNAME=	v${PORTVERSION}rc6
-GH_COMMIT=	3c89cae
+GH_TAGNAME=	v${PORTVERSION}
+GH_COMMIT=	6ce50aa
 
 USES=		pkgconfig
 USE_GNOME=	glib20
