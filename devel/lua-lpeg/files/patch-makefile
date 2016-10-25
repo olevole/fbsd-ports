@@ -1,0 +1,18 @@
+--- makefile.orig	2015-09-28 20:40:46.000000000 +0300
++++ makefile	2016-10-25 20:36:18.433223000 +0300
+@@ -1,5 +1,5 @@
+ LIBNAME = lpeg
+-LUADIR = ../lua/
++LUADIR ?= ../lua/
+ 
+ COPT = -O2
+ # COPT = -DLPEG_DEBUG -g
+@@ -23,7 +23,7 @@
+ 
+ 
+ CFLAGS = $(CWARNS) $(COPT) -std=c99 -I$(LUADIR) -fPIC
+-CC = gcc
++CC ?= gcc
+ 
+ FILES = lpvm.o lpcap.o lptree.o lpcode.o lpprint.o
+ 
