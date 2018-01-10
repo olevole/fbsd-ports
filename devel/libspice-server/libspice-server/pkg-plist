@@ -1,7 +1,4 @@
 libdata/pkgconfig/spice-server.pc
-share/licenses/spice-0.14.0/LICENSE
-share/licenses/spice-0.14.0/catalog.mk
-share/licenses/spice-0.14.0/GPLv2
 include/spice-server/spice-experimental.h
 include/spice-server/spice-server.h
 include/spice-server/spice-replay.h
