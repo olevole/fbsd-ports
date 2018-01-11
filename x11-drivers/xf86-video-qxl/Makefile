@@ -15,16 +15,17 @@ BUILD_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol \
 RUN_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol \
 		libspice-server>=0.14.0:devel/libspice-server \
 
-USES+=		localbase:ldflags python:2.7 shebangfix ssl
+USES+=		localbase:ldflags pkgconfig python:2.7 shebangfix ssl
 
 SPICE_CFLAGS+=	-I${OPENSSLINC} -I${PREFIX}/include/spice-server
-SPICE_LIBS+=	-L${OPENSSLLIB} -lcrypto -lssl
-CONFIGURE_ENV+= SPICE_CFLAGS="${SPICE_CFLAGS}" SPICE_LIBS="${SPICE_LIBS}" \
+SPICE_LIBS+=	-L${OPENSSLLIB} -lcrypto -lssl -lspice-server
+
+CONFIGURE_ENV+=	SPICE_CFLAGS="${SPICE_CFLAGS}" SPICE_LIBS="${SPICE_LIBS}" \
 		OPENSSL_CFLAGS="${SPICE_CFLAGS}" OPENSSL_LIBS="${SPICE_LIBS}"
 
-CONFIGURE_ARGS+=	--enable-xspice
+CONFIGURE_ARGS+=--enable-xspice
 
-python_OLD_CMD= "/usr/bin/python"
-SHEBANG_FILES=  scripts/Xspice
+python_OLD_CMD=	"/usr/bin/python"
+SHEBANG_FILES=	scripts/Xspice
 
 .include <bsd.port.mk>
