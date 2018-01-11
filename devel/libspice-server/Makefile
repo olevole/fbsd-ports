@@ -15,6 +15,7 @@ LICENSE=	GPLv2
 USE_XORG=	pixman
 USES=		autoreconf cpe gmake jpeg libtool pkgconfig tar:bzip2 \
 		python ssl localbase:ldflags
+USE_GCC=	any
 CPE_VENDOR=	redhat
 
 BUILD_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol \

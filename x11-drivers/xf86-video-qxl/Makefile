@@ -9,7 +9,8 @@ COMMENT=	X.Org X server -- QXL display driver
 
 XORG_CAT=	driver
 
-BUILD_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol
+BUILD_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol \
+		${LOCALBASE}/include/linux/input.h:multimedia/v4l_compat
 RUN_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol
 
 USE_LDCONFIG=	yes

@@ -1,5 +1,2 @@
-lib/xorg/modules/drivers/qxl_drv.la
 lib/xorg/modules/drivers/qxl_drv.so
 lib/xorg/modules/drivers/spiceqxl_drv.so
-lib/xorg/modules/drivers/spiceqxl_drv.la
-
