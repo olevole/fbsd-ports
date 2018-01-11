@@ -3,24 +3,22 @@
 
 PORTNAME=	libspice-server
 PORTVERSION=	0.14.0
-CATEGORIES?=	devel
+CATEGORIES=	devel
 MASTER_SITES=	https://www.spice-space.org/download/releases/
 DISTNAME=	spice-${PORTVERSION}
 
 MAINTAINER=	olevole@olevole.ru
-COMMENT?=	Implements the server side of the SPICE protocol
+COMMENT=	Implements the server side of the SPICE protocol
 
 LICENSE=	GPLv2
 
-USE_XORG=	pixman
-USES=		autoreconf cpe gmake jpeg libtool pkgconfig tar:bzip2 \
-		python ssl localbase:ldflags
-USE_GCC=	any
-CPE_VENDOR=	redhat
-
-BUILD_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol \
-		${PYTHON_PKGNAMEPREFIX}pyparsing>=2.0.1:devel/py-pyparsing@${PY_FLAVOR}
+BUILD_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol
 RUN_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol
+
+USES=		autoreconf gmake jpeg libtool localbase:ldflag pkgconfig \
+		ssl tar:bzip2
+
+CPE_VENDOR=	redhat
 
 CONFIGURE_ARGS+=--disable-celt051
 
@@ -30,10 +28,6 @@ CONFIGURE_ENV+=	SSL_CFLAGS="${SPICE_SSL_CFLAGS}" SSL_LIBS="${SPICE_SSL_LIBS}" \
 		OPENSSL_CFLAGS="${SPICE_SSL_CFLAGS}" OPENSSL_LIBS="${SPICE_SSL_LIBS}"
 
 GNU_CONFIGURE=	yes
-USE_LDCONFIG=	yes
-
-# we can't use pathfix with USES=autoreconf
-MAKE_ARGS=	pkgconfigdir="$(PREFIX)/libdata/pkgconfig"
 
 INSTALL_TARGET=	install-strip
 

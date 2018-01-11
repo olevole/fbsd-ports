@@ -1,5 +1,5 @@
---- tools/reds_stat.c.bak	2017-09-21 14:05:07.000000000 +0300
-+++ tools/reds_stat.c	2017-12-27 18:13:27.058988000 +0300
+--- tools/reds_stat.c.orig	2017-09-21 11:05:07 UTC
++++ tools/reds_stat.c
 @@ -34,11 +34,47 @@
  #define VALUE_TABS 7
  #define INVALID_STAT_REF (~(uint32_t)0)
@@ -48,7 +48,7 @@
  static void print_stat_tree(int32_t node_index, int depth)
  {
      SpiceStatNode *node = &reds_nodes[node_index];
-@@ -144,7 +180,8 @@
+@@ -144,7 +180,8 @@ int main(int argc, char **argv)
              num_of_nodes = reds_stat->num_of_nodes;
              shm_old_size = shm_size;
              shm_size = header_size + num_of_nodes * sizeof(SpiceStatNode);
