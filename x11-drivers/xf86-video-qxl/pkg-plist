@@ -1,2 +1,3 @@
+bin/Xspice
 lib/xorg/modules/drivers/qxl_drv.so
 lib/xorg/modules/drivers/spiceqxl_drv.so
