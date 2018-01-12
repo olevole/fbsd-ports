@@ -1,3 +1,4 @@
 bin/Xspice
 lib/xorg/modules/drivers/qxl_drv.so
 lib/xorg/modules/drivers/spiceqxl_drv.so
+@sample etc/X11/xorg.conf.d/spiceqxl.xorg.conf.example etc/X11/xorg.conf.d/spiceqxl.xorg.conf

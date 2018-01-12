@@ -28,4 +28,9 @@ CONFIGURE_ARGS+=--enable-xspice
 python_OLD_CMD=	"/usr/bin/python"
 SHEBANG_FILES=	scripts/Xspice
 
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/X11/xorg.conf.d
+	${INSTALL_DATA} ${WRKSRC}/examples/spiceqxl.xorg.conf.example \
+	${STAGEDIR}${PREFIX}/etc/X11/xorg.conf.d/spiceqxl.xorg.conf.example
+
 .include <bsd.port.mk>
