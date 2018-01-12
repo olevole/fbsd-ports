@@ -19,6 +19,7 @@ USES=		autoreconf gmake jpeg libtool localbase:ldflag pkgconfig \
 		ssl tar:bzip2
 
 USE_GNOME=	glib20
+USE_XORG=	pixman
 
 CPE_VENDOR=	redhat
 
