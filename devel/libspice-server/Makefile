@@ -18,6 +18,8 @@ RUN_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol
 USES=		autoreconf gmake jpeg libtool localbase:ldflag pkgconfig \
 		ssl tar:bzip2
 
+USE_GNOME=	glib20
+
 CPE_VENDOR=	redhat
 
 CONFIGURE_ARGS+=--disable-celt051
