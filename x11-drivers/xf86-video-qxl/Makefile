@@ -19,6 +19,8 @@ XORG_CAT=	driver
 
 USES+=		localbase:ldflags pkgconfig python:2.7 shebangfix ssl
 
+USE_XORG=	xf86dgaproto xfont
+
 SPICE_CFLAGS+=	-I${OPENSSLINC} -I${PREFIX}/include/spice-server
 SPICE_LIBS+=	-L${OPENSSLLIB} -lcrypto -lssl -lspice-server
 
