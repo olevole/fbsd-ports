@@ -7,13 +7,15 @@ CATEGORIES=	x11-drivers
 MAINTAINER=	olevole@olevole.ru
 COMMENT=	X.Org X server -- QXL display driver
 
-XORG_CAT=	driver
+LICENSE=	MIT
 
 BUILD_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol \
 		libspice-server>=0.14.0:devel/libspice-server \
 		${LOCALBASE}/include/linux/input.h:multimedia/v4l_compat
 RUN_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol \
-		libspice-server>=0.14.0:devel/libspice-server \
+		libspice-server>=0.14.0:devel/libspice-server
+
+XORG_CAT=	driver
 
 USES+=		localbase:ldflags pkgconfig python:2.7 shebangfix ssl
 
