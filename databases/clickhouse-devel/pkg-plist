@@ -7,16 +7,10 @@ bin/clickhouse-zookeeper-cli
 cmake/global-release.cmake
 cmake/global.cmake
 etc/clickhouse-client/client-test.xml
-etc/clickhouse-client/config.xml
 etc/clickhouse-client/config.xml.sample
-etc/clickhouse-server/config.xml
 etc/clickhouse-server/config.xml.sample
 etc/clickhouse-server/server-test.xml
-etc/clickhouse-server/users.xml
 etc/clickhouse-server/users.xml.sample
-lib/libcxx.a
-lib/libcxxabi.a
-lib/libunwind.a
 share/clickhouse-test/config/access_management.xml
 share/clickhouse-test/config/client_config.xml
 share/clickhouse-test/config/clusters.xml
