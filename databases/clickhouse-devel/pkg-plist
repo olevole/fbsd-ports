@@ -1,3 +1,11 @@
+bin/clickhouse-benchmark
+bin/clickhouse-client
+bin/clickhouse-copier
+bin/clickhouse-extract-from-config
+bin/clickhouse-format
+bin/clickhouse-local
+bin/clickhouse-obfuscator
+bin/clickhouse-server
 bin/clickhouse
 bin/clickhouse-odbc-bridge
 bin/clickhouse-report
@@ -1092,6 +1100,7 @@ share/clickhouse-test/queries/0_stateless/00443_optimize_final_vertical_merge.re
 share/clickhouse-test/queries/0_stateless/00443_optimize_final_vertical_merge.sh
 share/clickhouse-test/queries/0_stateless/00443_preferred_block_size_bytes.reference
 share/clickhouse-test/queries/0_stateless/00443_preferred_block_size_bytes.sh
+share/clickhouse-test/queries/0_stateless/00443_merge_tree_uniform_read_distribution_0.reference
 share/clickhouse-test/queries/0_stateless/00444_join_use_nulls.reference
 share/clickhouse-test/queries/0_stateless/00444_join_use_nulls.sql
 share/clickhouse-test/queries/0_stateless/00445_join_nullable_keys.reference
@@ -4007,3 +4016,6 @@ share/clickhouse-test/queries/conftest.py
 share/clickhouse-test/queries/query_test.py
 share/clickhouse-test/queries/server.py
 share/clickhouse-test/queries/shell_config.sh
+@dir /var/db/clickhouse
+@dir /var/log/clickhouse
+@dir /var/run/clickhouse

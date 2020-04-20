@@ -22,7 +22,7 @@ LIB_DEPENDS=	libprotobuf.so:devel/protobuf
 RUN_DEPENDS=	curl:ftp/curl \
 		bash:shells/bash
 
-USES:=		cmake:insource shebangfix
+USES=		cmake:insource python shebangfix
 CXX=		clang++90
 
 USE_LDCONFIG=	yes
@@ -118,12 +118,27 @@ GH_TUPLE+=	\
 		feathericons:feather:dca4f12:feathericons_feather/contrib/website/images/feathericons
 
 USE_RC_SUBR=	${PORTNAME}
-SHEBANG_FILES=	tests/performance/create_benchmark_page.py \
-		tests/clickhouse-test
+SHEBANG_FILES=	tests/clickhouse-test \
+		tests/queries/0_stateless/00979_live_view_watch_live_with_subquery.py \
+		tests/queries/0_stateless/00979_live_view_watch_live.py \
+		tests/queries/0_stateless/00971_live_view_watch_http_heartbeat.py \
+		tests/queries/0_stateless/00966_live_view_watch_events_http.py \
+		tests/queries/0_stateless/00967_live_view_watch_http.py \
+		tests/queries/0_stateless/00979_live_view_watch_live_moving_avg.py \
+		tests/queries/0_stateless/00960_live_view_watch_events_live.py \
+		tests/queries/0_stateless/00965_live_view_watch_heartbeat.py \
+		tests/queries/0_stateless/00963_temporary_live_view_watch_live_timeout.py.disabled \
+		tests/queries/0_stateless/00991_live_view_watch_http.python \
+		tests/queries/0_stateless/00921_datetime64_compatibility.python \
+		tests/queries/0_stateless/00962_temporary_live_view_watch_live.py \
+		tests/queries/0_stateless/00990_hasToken.python \
+		tests/queries/0_stateless/00970_live_view_watch_events_http_heartbeat.py \
+		tests/queries/0_stateless/00964_live_view_watch_events_heartbeat.py \
+		tests/performance/create_benchmark_page.py
 
 CMAKE_ARGS=	-DNO_WERROR=1 \
 		-DUSE_INTERNAL_PROTOBUF_LIBRARY=FALSE \
-		-DCMAKE_REQUIRED_INCLUDES:STRING=${LOCALBASE}/include/ \
+		-DCMAKE_REQUIRED_INCLUDES:STRING=${LOCALBASE}/include/
 
 USERS=		clickhouse
 GROUPS=		clickhouse
