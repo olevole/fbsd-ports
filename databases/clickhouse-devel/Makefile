@@ -2,9 +2,9 @@
 # $FreeBSD: head/databases/clickhouse/Makefile 530566 2020-04-04 07:23:29Z sunpoet $
 
 PORTNAME=	clickhouse
-PORTVERSION=	20.4.1.1
+PORTVERSION=	20.4.1.3079
 DISTVERSIONPREFIX=	v
-DISTVERSIONSUFFIX=	-prestable
+DISTVERSIONSUFFIX=	-testing
 CATEGORIES=	databases
 PKGNAMESUFFIX?=	-devel
 
@@ -19,18 +19,15 @@ ONLY_FOR_ARCHS_REASON=	"Only supported on amd64"
 BUILD_DEPENDS=	bash:shells/bash \
 		clang++90:devel/llvm90
 LIB_DEPENDS=	libprotobuf.so:devel/protobuf
-RUN_DEPENDS=	curl:ftp/curl \
-		bash:shells/bash
+RUN_DEPENDS=	bash:shells/bash
 
-USES=		cmake:insource python shebangfix
+USES=		cmake:insource python localbase shebangfix
 CXX=		clang++90
-
 USE_LDCONFIG=	yes
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	yandex
 GH_PROJECT=	ClickHouse
-GH_TAGNAME=	61d33a8
 GH_TUPLE+=	\
 		apache:arrow:b789226:apache_arrow/contrib/arrow \
 		ClickHouse-Extras:avro:6cfcf6c:ClickHouse_Extras/contrib/avro \
@@ -62,8 +59,6 @@ GH_TUPLE+=	\
 		gflags:gflags:28f50e0:gflags_gflags/contrib/grpc/third_party/gflags \
 		googleapis:googleapis:80ed4d0:googleapis_googleapis/contrib/grpc/third_party/googleapis \
 		google:/googletest:c9ccac7:google_googletest/contrib/grpc/third_party/googletest \
-		google:protobuf:0974557:google_protobuf/contrib/grpc/third_party/protobuf \
-		google:googletest:5ec7f0c:google_protobuf/contrib/grpc/third_party/protobuf/third_party/googletest \
 		envoyproxy:protoc-gen-validate:e143189:envoyproxy_protoc_gen_validate/contrib/grpc/third_party/protoc-gen-validate \
 		cncf:udpa:9432480:cncf_udpa/contrib/grpc/third_party/udpa \
 		madler:zlib:cacf7f1:madler_zlib/contrib/grpc/third_party/zlib  \
@@ -137,8 +132,7 @@ SHEBANG_FILES=	tests/clickhouse-test \
 		tests/performance/create_benchmark_page.py
 
 CMAKE_ARGS=	-DNO_WERROR=1 \
-		-DUSE_INTERNAL_PROTOBUF_LIBRARY=FALSE \
-		-DCMAKE_REQUIRED_INCLUDES:STRING=${LOCALBASE}/include/
+		-DUSE_INTERNAL_PROTOBUF_LIBRARY=FALSE
 
 USERS=		clickhouse
 GROUPS=		clickhouse
