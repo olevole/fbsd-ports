@@ -11,6 +11,8 @@ COMMENT=	CBSD message queue router
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+RUN_DEPENDS=	beanstalkd:net/beanstalkd
+
 USES=		go
 USE_GITHUB=	yes
 GH_ACCOUNT=	cbsd
