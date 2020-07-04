@@ -1,0 +1,2 @@
+@sample etc/cbsd-mq-router.json.sample
+sbin/cbsd-mq-router

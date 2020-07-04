@@ -1,0 +1,14 @@
+[
+{ type: install
+  message: <<EOM
+cbsd-mq-router is now installed, but requires additional setup steps:
+
+Enable and start beanstalkd service:
+
+  sysrc beanstalkd_flags="-l 127.0.0.1 -p 11300"
+  service beanstalkd enable
+  service beanstalkd start
+
+EOM
+}
+]
