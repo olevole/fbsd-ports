@@ -9,6 +9,8 @@ Enable and start beanstalkd service:
   service beanstalkd enable
   service beanstalkd start
 
+Edit %%PREFIX%%/etc/cbsd-mq-router.json according local CBSD workdir settings.
+
 EOM
 }
 ]
