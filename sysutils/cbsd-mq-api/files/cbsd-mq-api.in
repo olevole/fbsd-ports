@@ -9,7 +9,7 @@
 
 name="cbsd_mq_api"
 desc="CBSD MQ API"
-rcvar="cbsd_api_enable"
+rcvar="cbsd_mq_api_enable"
 pidfile="/var/run/${name}.pid"
 daemon_pidfile="/var/run/${name}-daemon.pid"
 logfile="/var/log/cbsd_mq_api.log"
