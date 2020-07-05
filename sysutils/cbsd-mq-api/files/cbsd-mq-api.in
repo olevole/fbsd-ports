@@ -16,7 +16,7 @@ logfile="/var/log/cbsd_mq_api.log"
 extra_commands="reload"
 command="/usr/local/sbin/cbsd-mq-api"
 
-: ${cbsd_mq_api_args:="-config /usr/local/etc/cbsd-mq-api.json"}
+: ${cbsd_mq_api_args:="-config /usr/local/etc/cbsd-mq-router.json"}
 
 load_rc_config ${name}
 
