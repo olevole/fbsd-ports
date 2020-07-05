@@ -1,22 +1,22 @@
 #!/bin/sh
 
-# PROVIDE: cbsd_mq_router
+# PROVIDE: cbsd_mq_api
 # REQUIRE: NETWORK
 # BEFORE:  DAEMON
 # KEYWORD: nojail
 
 . /etc/rc.subr
 
-name="cbsd_mq_router"
-desc="CBSD to MQ bridge"
-rcvar="cbsd_mq_router_enable"
+name="cbsd_mq_api"
+desc="CBSD MQ API"
+rcvar="cbsd_api_enable"
 pidfile="/var/run/${name}.pid"
 daemon_pidfile="/var/run/${name}-daemon.pid"
-logfile="/var/log/cbsd_mq_router.log"
+logfile="/var/log/cbsd_mq_api.log"
 extra_commands="reload"
-command="/usr/local/sbin/cbsd-mq-router"
+command="/usr/local/sbin/cbsd_mq_api"
 
-: ${cbsd_mq_router_args:="-config /usr/local/etc/cbsd-mq-router.json"}
+: ${cbsd_mq_api_args:="-config /usr/local/etc/cbsd-mq-api.json"}
 
 load_rc_config ${name}
 
@@ -41,7 +41,7 @@ stop()
 
 start()
 {
-	/usr/sbin/daemon -f -R5 -p ${pidfile} -P ${daemon_pidfile} -o ${logfile} ${command} ${cbsd_mq_router_args}
+	/usr/sbin/daemon -f -R5 -p ${pidfile} -P ${daemon_pidfile} -o ${logfile} ${command} ${cbsd_mq_api_args}
 }
 
 reload()
