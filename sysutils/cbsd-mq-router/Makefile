@@ -16,7 +16,7 @@ RUN_DEPENDS=	beanstalkd:net/beanstalkd
 USES=		go
 USE_GITHUB=	yes
 GH_ACCOUNT=	cbsd
-GH_TAGNAME=	b9b69e4
+GH_TAGNAME=	ecbf052
 USE_RC_SUBR=	cbsd-mq-router
 SSP_UNSAFE=	yes
 
