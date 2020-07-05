@@ -14,7 +14,7 @@ pidfile="/var/run/${name}.pid"
 daemon_pidfile="/var/run/${name}-daemon.pid"
 logfile="/var/log/cbsd_mq_api.log"
 extra_commands="reload"
-command="/usr/local/sbin/cbsd_mq_api"
+command="/usr/local/sbin/cbsd-mq-api"
 
 : ${cbsd_mq_api_args:="-config /usr/local/etc/cbsd-mq-api.json"}
 
