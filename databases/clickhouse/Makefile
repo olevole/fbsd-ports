@@ -2,11 +2,10 @@
 # $FreeBSD: head/databases/clickhouse/Makefile 530566 2020-04-04 07:23:29Z sunpoet $
 
 PORTNAME=	clickhouse
-PORTVERSION=	20.4.1.1
+PORTVERSION=	20.5.4.40
 DISTVERSIONPREFIX=	v
-DISTVERSIONSUFFIX=	-prestable
+DISTVERSIONSUFFIX=	-stable
 CATEGORIES=	databases
-DISTFILES=	
 
 MAINTAINER=	ports@FreeBSD.Org
 COMMENT=	ClickHouse is a column-oriented database management system
@@ -19,25 +18,111 @@ ONLY_FOR_ARCHS_REASON=	"Only supported on amd64"
 BUILD_DEPENDS=	bash:shells/bash \
 		clang++90:devel/llvm90
 LIB_DEPENDS=	libprotobuf.so:devel/protobuf
-RUN_DEPENDS=	curl:ftp/curl \
-		bash:shells/bash
+RUN_DEPENDS=	bash:shells/bash
+
+USES=		cmake:insource python localbase shebangfix
 CXX=		clang++90
-
-USES:=		cmake:insource shebangfix
-
 USE_LDCONFIG=	yes
 
-#USE_GITHUB=	yes
+USE_GITHUB=	yes
 GH_ACCOUNT=	yandex
 GH_PROJECT=	ClickHouse
-GH_TAGNAME=	abbeb13
+GH_TUPLE=	\
+		apache:arrow:b789226:apache_arrow/contrib/arrow \
+		ClickHouse-Extras:avro:6cfcf6c:ClickHouse_Extras_avro/contrib/avro \
+		ClickHouse-Extras:aws-sdk-cpp:17e10c0:ClickHouse_Extras_aws_sdk_cpp/contrib/aws \
+		ClickHouse-Extras:aws-c-common:736a82d:ClickHouse_Extras_aws_c_common/contrib/aws-c-common \
+		ClickHouse-Extras:aws-c-event-stream:3bc3366:ClickHouse_Extras_aws_c_event_stream/contrib/aws-c-event-stream \
+		ClickHouse-Extras:aws-checksums:519d6d9:ClickHouse_Extras_aws_checksums/contrib/aws-checksums \
+		powturbo:Turbo-Base64:95ba56a:powturbo_Turbo_Base64/contrib/base64 \
+		ClickHouse-Extras:boost:a04e72c:ClickHouse_Extras_boost/contrib/boost \
+		google:brotli:5805f99:google_brotli/contrib/brotli \
+		capnproto:capnproto:a00ccd9:capnproto_capnproto/contrib/capnproto \
+		ClickHouse-Extras:cpp-driver:a49b4e0:ClickHouse_Extras_cpp_driver/contrib/cassandra \
+		ClickHouse-Extras:cctz:7a2db4e:ClickHouse_Extras_cctz/contrib/cctz \
+		ClickHouse-Extras:cppkafka:f555ee3:ClickHouse_Extras_cppkafka/contrib/cppkafka \
+		curl:curl:3b8bbbb:curl_curl/contrib/curl \
+		google:double-conversion:cf2f0f3:google_double_conversion/contrib/double-conversion \
+		ClickHouse-Extras:fastops:88752a5:ClickHouse_Extras_fastops/contrib/fastops \
+		google:flatbuffers:bf9eb67:google_flatbuffers/contrib/flatbuffers \
+		fmtlib:fmt:297c3b2:fmtlib_fmt/contrib/fmtlib \
+		google:googletest:703bd9c:google_googletest/contrib/googletest \
+		ClickHouse-Extras:grpc:8aea4e1:ClickHouse_Extras_grpc/contrib/grpc \
+		uber:h3:6cfd649:uber_h3/contrib/h3 \
+		ClickHouse-Extras:hyperscan:3907fd0:ClickHouse_Extras_hyperscan/contrib/hyperscan \
+		unicode-org:icu:faa2f9f:unicode_org_icu/contrib/icu \
+		ClickHouse-Extras:icudata:f020820:ClickHouse_Extras_icudata/contrib/icudata \
+		jemalloc:jemalloc:ea6b3e9:jemalloc_jemalloc/contrib/jemalloc \
+		ClickHouse-Extras:libc-headers:92c74f9:ClickHouse_Extras_libc_headers/contrib/libc-headers \
+		ClickHouse-Extras:libcpuid:8db3b8d:ClickHouse_Extras_libcpuid/contrib/libcpuid \
+		ClickHouse-Extras:libcxx:9f71e12:ClickHouse_Extras_libcxx/contrib/libcxx \
+		ClickHouse-Extras:libcxxabi:1ebc83a:ClickHouse_Extras_libcxxabi/contrib/libcxxabi \
+		ClickHouse-Extras:libgsasl:140fb58:ClickHouse_Extras_libgsasl/contrib/libgsasl \
+		ClickHouse-Extras:libhdfs3:e2131aa:ClickHouse_Extras_libhdfs3/contrib/libhdfs3 \
+		edenhill:librdkafka:b0d91bd:edenhill_librdkafka/contrib/librdkafka \
+		ClickHouse-Extras:libunwind:27026ef:ClickHouse_Extras_libunwind/contrib/libunwind \
+		ClickHouse-Extras:libuv:8443830:ClickHouse_Extras_libuv/contrib/libuv \
+		GNOME:libxml2:18890f4:GNOME_libxml2/contrib/libxml2 \
+		ClickHouse-Extras:llvm:3d6c7e9:ClickHouse_Extras_llvm/contrib/llvm \
+		lz4:lz4:f39b79f:lz4_lz4/contrib/lz4 \
+		ClickHouse-Extras:mariadb-connector-c:3f512fe:ClickHouse_Extras_mariadb_connector_c/contrib/mariadb-connector-c \
+		msgpack:msgpack-c:4668426:msgpack_msgpack_c/contrib/msgpack-c \
+		openldap:openldap:34b9ba9:openldap_openldap/contrib/openldap \
+		ClickHouse-Extras:openssl:07e9623:ClickHouse_Extras_openssl/contrib/openssl \
+		apache:orc:5981208:apache_orc/contrib/orc \
+		ClickHouse-Extras:poco:be2ab90:ClickHouse_Extras_poco/contrib/poco \
+		ClickHouse-Extras:protobuf:d6a10dd:ClickHouse_Extras_protobuf/contrib/protobuf \
+		Tencent:rapidjson:8f4c021:Tencent_rapidjson/contrib/rapidjson \
+		google:re2:7cf8b88:google_re2/contrib/re2 \
+		ClickHouse-Extras:replxx:2d37daa:ClickHouse_Extras_replxx/contrib/replxx \
+		ClickHouse-Extras:ryu:5b4a853:ClickHouse_Extras_ryu/contrib/ryu \
+		lemire:simdjson:560f074:lemire_simdjson/contrib/simdjson \
+		google:snappy:3f194ac:google_snappy/contrib/snappy \
+		sparsehash:sparsehash-c11:cf0bffa:sparsehash_sparsehash_c11/contrib/sparsehash-c11 \
+		apache:thrift:010ccf0:apache_thrift/contrib/thrift \
+		ClickHouse-Extras:UnixODBC:b0ad30f:ClickHouse_Extras_UnixODBC/contrib/unixodbc \
+		ClickHouse-Extras:zlib-ng:bba56a7:ClickHouse_Extras_zlib_ng/contrib/zlib-ng \
+		facebook:zstd:10f0e69:facebook_zstd/contrib/zstd \
+		apache:parquet-testing:46c9e97:apache_parquet_testing/contrib/arrow/cpp/submodules/parquet-testing \
+		apache:arrow-testing:93f33ae:apache_arrow_testing/contrib/arrow/testing \
+		hillbig:esaxx:ca7cb33:hillbig_esaxx/contrib/brotli/research/esaxx \
+		y-256:libdivsufsort:5f60d6f:y_256_libdivsufsort/contrib/brotli/research/libdivsufsort \
+		catchorg:Catch2:d2d8455:catchorg_Catch2/contrib/cppkafka/third_party/Catch2 \
+		c-ares:c-ares:e982924:c_ares_c_ares/contrib/grpc/third_party/cares/cares \
+		boostorg:predef:560ff52:boostorg_predef/contrib/msgpack-c/external/boost/predef \
+		boostorg:preprocessor:56090c5:boostorg_preprocessor/contrib/msgpack-c/external/boost/preprocessor \
+		google:googletest:ba96d0b:google_googletest/contrib/rapidjson/thirdparty/gtest \
+		google:benchmark:8982e1e:google_benchmark/contrib/simdjson/dependencies/benchmark \
+		DaveGamble:cJSON:c69134d:DaveGamble_cJSON/contrib/simdjson/dependencies/cJSON \
+		mikeando:fastjson:485f994:mikeando_fastjson/contrib/simdjson/dependencies/fastjson \
+		vivkin:gason:7aee524:vivkin_gason/contrib/simdjson/dependencies/gason \
+		zserge:jsmn:18e9fe4:zserge_jsmn/contrib/simdjson/dependencies/jsmn \
+		nlohmann:json:a015b78:nlohmann_json/contrib/simdjson/dependencies/json \
+		dropbox:json11:ec4e452:dropbox_json11/contrib/simdjson/dependencies/json11 \
+		open-source-parsers:jsoncpp:0c1cc6e:open_source_parsers_jsoncpp/contrib/simdjson/dependencies/jsoncpp \
+		Tencent:rapidjson:b32cd94:Tencent_rapidjson/contrib/simdjson/dependencies/rapidjson \
+		chadaustin:sajson:2dcfd35:chadaustin_sajson/contrib/simdjson/dependencies/sajson \
+		esnme:ujson4c:e14f3fd:esnme_ujson4c/contrib/simdjson/dependencies/ujson4c \
+		google:googletest:0a43962:google_googletest/contrib/simdjson/dependencies/rapidjson/thirdparty/gtest
+
 USE_RC_SUBR=	${PORTNAME}
-SHEBANG_FILES=	tests/performance/create_benchmark_page.py \
-		tests/clickhouse-test
+SHEBANG_FILES=	tests/clickhouse-test \
+		tests/queries/0_stateless/00960_live_view_watch_events_live.py \
+		tests/queries/0_stateless/00962_temporary_live_view_watch_live.py \
+		tests/queries/0_stateless/00964_live_view_watch_events_heartbeat.py \
+		tests/queries/0_stateless/00965_live_view_watch_heartbeat.py \
+		tests/queries/0_stateless/00966_live_view_watch_events_http.py \
+		tests/queries/0_stateless/00967_live_view_watch_http.py \
+		tests/queries/0_stateless/00970_live_view_watch_events_http_heartbeat.py \
+		tests/queries/0_stateless/00971_live_view_watch_http_heartbeat.py \
+		tests/queries/0_stateless/00979_live_view_watch_continuous_aggregates.py \
+		tests/queries/0_stateless/00979_live_view_watch_live.py \
+		tests/queries/0_stateless/00979_live_view_watch_live_moving_avg.py \
+		tests/queries/0_stateless/00979_live_view_watch_live_with_subquery.py \
+		tests/queries/0_stateless/01246_insert_into_watch_live_view.py
 
 CMAKE_ARGS=	-DNO_WERROR=1 \
-		-DUSE_INTERNAL_PROTOBUF_LIBRARY=FALSE \
-		-DCMAKE_REQUIRED_INCLUDES:STRING=${LOCALBASE}/include/ \
+		-DUSE_INTERNAL_PROTOBUF_LIBRARY=FALSE
 
 USERS=		clickhouse
 GROUPS=		clickhouse
@@ -66,12 +151,6 @@ BROKEN=	fails to compile with Clang 8: Assertion error in getZExtValue()
 
 .include <bsd.port.pre.mk>
 
-do-extract:
-	git clone --recursive --single-branch --depth=1 \
-	https://github.com/ClickHouse/ClickHouse.git \
-	${WRKSRC}
-	(cd ${WRKSRC} && git submodule update --init --recursive)
-
 post-patch:
 	@${REINPLACE_CMD} -e 's|/var/lib/clickhouse|/var/db/clickhouse|;s|/var/log/clickhouse-server|/var/log/clickhouse|;s|/etc/clickhouse-server|${PREFIX}/etc/clickhouse-server|' ${WRKSRC}/programs/server/config.xml
 
@@ -81,12 +160,14 @@ post-install:
 	@${RM} ${STAGEDIR}${PREFIX}/bin/corrector_utf8
 	@${RM} -r ${STAGEDIR}${PREFIX}/include/gtest
 	@${RM} ${STAGEDIR}${PREFIX}/lib/libgtest*
-
-	${INSTALL_DATA} ${STAGEDIR}${PREFIX}/etc/clickhouse-client/config.xml \
+	@${RM} ${STAGEDIR}${PREFIX}/lib/libcxx.a
+	@${RM} ${STAGEDIR}${PREFIX}/lib/libcxxabi.a
+	@${RM} ${STAGEDIR}${PREFIX}/lib/libunwind.a
+	${MV} ${STAGEDIR}${PREFIX}/etc/clickhouse-client/config.xml \
 		${STAGEDIR}${PREFIX}/etc/clickhouse-client/config.xml.sample
-	${INSTALL_DATA} ${STAGEDIR}${PREFIX}/etc/clickhouse-server/config.xml \
+	${MV} ${STAGEDIR}${PREFIX}/etc/clickhouse-server/config.xml \
 		${STAGEDIR}${PREFIX}/etc/clickhouse-server/config.xml.sample
-	${INSTALL_DATA} ${STAGEDIR}${PREFIX}/etc/clickhouse-server/users.xml \
+	${MV} ${STAGEDIR}${PREFIX}/etc/clickhouse-server/users.xml \
 		${STAGEDIR}${PREFIX}/etc/clickhouse-server/users.xml.sample
 
 	@${MKDIR} ${STAGEDIR}/var/db/clickhouse
