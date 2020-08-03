@@ -7,7 +7,7 @@ DISTVERSIONPREFIX=	v
 DISTVERSIONSUFFIX=	-stable
 CATEGORIES=	databases
 
-MAINTAINER=	ports@FreeBSD.Org
+MAINTAINER=	proler@gmail.com
 COMMENT=	ClickHouse is a column-oriented database management system
 
 LICENSE=	APACHE20
