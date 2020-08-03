@@ -119,7 +119,17 @@ SHEBANG_FILES=	tests/clickhouse-test \
 		tests/queries/0_stateless/00979_live_view_watch_live.py \
 		tests/queries/0_stateless/00979_live_view_watch_live_moving_avg.py \
 		tests/queries/0_stateless/00979_live_view_watch_live_with_subquery.py \
-		tests/queries/0_stateless/01246_insert_into_watch_live_view.py
+		tests/queries/0_stateless/01246_insert_into_watch_live_view.py \
+		utils/clickhouse-docker \
+		utils/generate-ya-make/generate-ya-make.sh \
+		utils/simple-backport/changelog.sh \
+		utils/simple-backport/backport.sh \
+		utils/list-versions/list-versions.sh \
+		utils/build/build_minimal.sh \
+		utils/build/build_debian_unbundled.sh \
+		utils/build/build_debian_shared.sh \
+		utils/build/build_debian_unbundled_split.sh \
+		utils/list-licenses/list-licenses.sh
 
 CMAKE_ARGS=	-DNO_WERROR=1 \
 		-DUSE_INTERNAL_PROTOBUF_LIBRARY=FALSE
