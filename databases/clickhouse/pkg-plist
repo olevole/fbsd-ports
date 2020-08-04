@@ -1,6 +1,14 @@
 bin/clickhouse
+bin/clickhouse-benchmark
+bin/clickhouse-client
+bin/clickhouse-copier
+bin/clickhouse-extract-from-config
+bin/clickhouse-format
+bin/clickhouse-local
+bin/clickhouse-obfuscator
 bin/clickhouse-odbc-bridge
 bin/clickhouse-report
+bin/clickhouse-server
 bin/clickhouse-test
 bin/clickhouse-test-server
 bin/clickhouse-zookeeper-cli
@@ -1119,6 +1127,7 @@ etc/clickhouse-server/server-test.xml
 %%DATADIR%%-test/queries/0_stateless/00441_nulls_in.sql
 %%DATADIR%%-test/queries/0_stateless/00442_filter_by_nullable.reference
 %%DATADIR%%-test/queries/0_stateless/00442_filter_by_nullable.sql
+%%DATADIR%%-test/queries/0_stateless/00443_merge_tree_uniform_read_distribution_0.reference
 %%DATADIR%%-test/queries/0_stateless/00443_merge_tree_uniform_read_distribution_0.sh
 %%DATADIR%%-test/queries/0_stateless/00443_optimize_final_vertical_merge.reference
 %%DATADIR%%-test/queries/0_stateless/00443_optimize_final_vertical_merge.sh

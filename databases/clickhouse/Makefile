@@ -105,10 +105,17 @@ GH_TUPLE=	\
 		esnme:ujson4c:e14f3fd:esnme_ujson4c/contrib/simdjson/dependencies/ujson4c \
 		google:googletest:0a43962:google_googletest/contrib/simdjson/dependencies/rapidjson/thirdparty/gtest
 
+SHEBANG_LANG=		expect
+expect_OLD_CMD=		/usr/bin/expect
+expect_CMD=		${LOCALBASE}/bin/expect
+
 USE_RC_SUBR=	${PORTNAME}
-SHEBANG_FILES=	tests/clickhouse-test \
+SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
+		tests/clickhouse-test \
+		tests/queries/0_stateless/00921_datetime64_compatibility.python \
 		tests/queries/0_stateless/00960_live_view_watch_events_live.py \
 		tests/queries/0_stateless/00962_temporary_live_view_watch_live.py \
+		tests/queries/0_stateless/00963_temporary_live_view_watch_live_timeout.py.disabled \
 		tests/queries/0_stateless/00964_live_view_watch_events_heartbeat.py \
 		tests/queries/0_stateless/00965_live_view_watch_heartbeat.py \
 		tests/queries/0_stateless/00966_live_view_watch_events_http.py \
@@ -116,20 +123,25 @@ SHEBANG_FILES=	tests/clickhouse-test \
 		tests/queries/0_stateless/00970_live_view_watch_events_http_heartbeat.py \
 		tests/queries/0_stateless/00971_live_view_watch_http_heartbeat.py \
 		tests/queries/0_stateless/00979_live_view_watch_continuous_aggregates.py \
-		tests/queries/0_stateless/00979_live_view_watch_live.py \
 		tests/queries/0_stateless/00979_live_view_watch_live_moving_avg.py \
 		tests/queries/0_stateless/00979_live_view_watch_live_with_subquery.py \
+		tests/queries/0_stateless/00979_live_view_watch_live.py \
+		tests/queries/0_stateless/00990_hasToken.python \
+		tests/queries/0_stateless/00991_live_view_watch_http.python \
 		tests/queries/0_stateless/01246_insert_into_watch_live_view.py \
-		utils/clickhouse-docker \
-		utils/generate-ya-make/generate-ya-make.sh \
-		utils/simple-backport/changelog.sh \
-		utils/simple-backport/backport.sh \
-		utils/list-versions/list-versions.sh \
-		utils/build/build_minimal.sh \
-		utils/build/build_debian_unbundled.sh \
+		tests/queries/0_stateless/01293_client_interactive_vertical_multiline.sh \
+		tests/queries/0_stateless/01293_client_interactive_vertical_singleline.sh \
+		tests/queries/0_stateless/01300_client_save_history_when_terminated.sh \
 		utils/build/build_debian_shared.sh \
 		utils/build/build_debian_unbundled_split.sh \
-		utils/list-licenses/list-licenses.sh
+		utils/build/build_debian_unbundled.sh \
+		utils/build/build_minimal.sh \
+		utils/clickhouse-docker \
+		utils/generate-ya-make/generate-ya-make.sh \
+		utils/list-licenses/list-licenses.sh \
+		utils/list-versions/list-versions.sh \
+		utils/simple-backport/backport.sh \
+		utils/simple-backport/changelog.sh
 
 CMAKE_ARGS=	-DNO_WERROR=1 \
 		-DUSE_INTERNAL_PROTOBUF_LIBRARY=FALSE
@@ -142,6 +154,7 @@ SOVERSION=	${PORTVERSION}
 PLIST_SUB=	SOVERSION=${SOVERSION}
 
 OPTIONS_DEFINE=		TEST
+TEST_RUN_DEPENDS+=	expect>0:lang/expect
 
 TEST_CMAKE_BOOL=	ENABLE_TESTS
 
