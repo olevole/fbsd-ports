@@ -1,5 +1,5 @@
 # Created by: proler@gmail.com
-# $FreeBSD: head/databases/clickhouse/Makefile 530566 2020-04-04 07:23:29Z sunpoet $
+# $FreeBSD: $
 
 PORTNAME=	clickhouse
 PORTVERSION=	20.5.4.40
@@ -7,7 +7,7 @@ DISTVERSIONPREFIX=	v
 DISTVERSIONSUFFIX=	-stable
 CATEGORIES=	databases
 
-MAINTAINER=	proler@gmail.com
+MAINTAINER=	olevole@olevole.ru
 COMMENT=	ClickHouse is a column-oriented database management system
 
 LICENSE=	APACHE20
@@ -22,7 +22,6 @@ RUN_DEPENDS=	bash:shells/bash
 
 USES=		cmake:insource python localbase shebangfix
 CXX=		clang++90
-USE_LDCONFIG=	yes
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	yandex
@@ -164,12 +163,6 @@ TEST_CMAKE_BOOL=	ENABLE_TESTS
 SUB_LIST+=	LEGACY_LIMITS="@comment " MODERN_LIMITS=""
 .else
 SUB_LIST+=	LEGACY_LIMITS="" MODERN_LIMITS="@comment "
-.endif
-
-# Building with tests fails on 13.0-CURRENT@r346346 amd64
-# Clang segfaults with an assertion error - see PR #237619
-.if ${PORT_OPTIONS:MTEST} && ${OPSYS} == FreeBSD && ${OSVERSION} >= 1300014
-BROKEN=	fails to compile with Clang 8: Assertion error in getZExtValue()
 .endif
 
 .include <bsd.port.pre.mk>
