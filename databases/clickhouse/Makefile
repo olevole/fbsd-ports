@@ -8,7 +8,7 @@ DISTVERSIONSUFFIX=	-stable
 CATEGORIES=	databases
 
 MAINTAINER=	olevole@olevole.ru
-COMMENT=	ClickHouse is a column-oriented database management system
+COMMENT=	Fast open-source OLAP database management system
 
 LICENSE=	APACHE20
 
