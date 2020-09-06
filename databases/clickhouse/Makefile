@@ -1,8 +1,9 @@
 # Created by: proler@gmail.com
-# $FreeBSD: $
+# $FreeBSD: head/databases/clickhouse/Makefile 547418 2020-09-03 06:03:40Z lwhsu $
 
 PORTNAME=	clickhouse
 PORTVERSION=	20.7.2.30
+PORTREVISION=	1
 DISTVERSIONPREFIX=	v
 DISTVERSIONSUFFIX=	-stable
 CATEGORIES=	databases
@@ -124,6 +125,7 @@ SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
 		tests/queries/0_stateless/01293_client_interactive_vertical_multiline.sh \
 		tests/queries/0_stateless/01293_client_interactive_vertical_singleline.sh \
 		tests/queries/0_stateless/01300_client_save_history_when_terminated.sh \
+		tests/queries/0_stateless/01370_client_autocomplete_word_break_characters.sh \
 		utils/build/build_debian_shared.sh \
 		utils/build/build_debian_unbundled_split.sh \
 		utils/build/build_debian_unbundled.sh \
