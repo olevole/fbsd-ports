@@ -1,40 +1,36 @@
-# $FreeBSD: $
+# $FreeBSD: head/x11-drivers/xf86-video-qxl/Makefile 530016 2020-03-31 20:37:21Z zeising $
 
 PORTNAME=	xf86-video-qxl
-PORTVERSION=	0.1.5
+DISTVERSION=	0.1.5
+PORTREVISION=	4
 CATEGORIES=	x11-drivers
 
-MAINTAINER=	olevole@olevole.ru
+MAINTAINER=	x11@FreeBSD.org
 COMMENT=	X.Org X server -- QXL display driver
 
 LICENSE=	MIT
 
+DEPRECATED=	uses deprecated version of python
+EXPIRATION_DATE=	2020-09-15
+
 BUILD_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol \
-		libspice-server>=0.14.0:devel/libspice-server \
-		${LOCALBASE}/include/linux/input.h:multimedia/v4l_compat
-RUN_DEPENDS=	spice-protocol>=0.12.10:devel/spice-protocol \
-		libspice-server>=0.14.0:devel/libspice-server
+		${LOCALBASE}/include/linux/input.h:devel/evdev-proto
+LIB_DEPENDS=	libspice-server.so:devel/libspice-server
 
-XORG_CAT=	driver
-
-USES+=		localbase:ldflags pkgconfig python:2.7 shebangfix ssl
-
-USE_XORG=	xf86dgaproto xfont
-
-SPICE_CFLAGS+=	-I${OPENSSLINC} -I${PREFIX}/include/spice-server
-SPICE_LIBS+=	-L${OPENSSLLIB} -lcrypto -lssl -lspice-server
-
-CONFIGURE_ENV+=	SPICE_CFLAGS="${SPICE_CFLAGS}" SPICE_LIBS="${SPICE_LIBS}" \
-		OPENSSL_CFLAGS="${SPICE_CFLAGS}" OPENSSL_LIBS="${SPICE_LIBS}"
+USES=		localbase:ldflags pkgconfig python:2.7 shebangfix xorg \
+		xorg-cat:driver
+USE_XORG=	xfont
 
 CONFIGURE_ARGS+=--enable-xspice
 
 python_OLD_CMD=	"/usr/bin/python"
 SHEBANG_FILES=	scripts/Xspice
 
+OPTIONS_DEFINE=	DOCS
+
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/X11/xorg.conf.d
 	${INSTALL_DATA} ${WRKSRC}/examples/spiceqxl.xorg.conf.example \
-	${STAGEDIR}${PREFIX}/etc/X11/xorg.conf.d/spiceqxl.xorg.conf.example
+		${STAGEDIR}${PREFIX}/etc/X11/xorg.conf.d/spiceqxl.xorg.conf.example
 
 .include <bsd.port.mk>
