@@ -1,0 +1,22 @@
+bin/victoria-metrics-pure
+share/doc/victoria-metrics/Articles.md
+share/doc/victoria-metrics/CHANGELOG.md
+share/doc/victoria-metrics/CaseStudies.md
+share/doc/victoria-metrics/Cluster-VictoriaMetrics.md
+share/doc/victoria-metrics/ExtendedPromQL.md
+share/doc/victoria-metrics/FAQ.md
+share/doc/victoria-metrics/Home.md
+share/doc/victoria-metrics/MetricsQL.md
+share/doc/victoria-metrics/Quick-Start.md
+share/doc/victoria-metrics/Release-Guide.md
+share/doc/victoria-metrics/SampleSizeCalculations.md
+share/doc/victoria-metrics/Single-server-VictoriaMetrics.md
+share/doc/victoria-metrics/logo.png
+share/doc/victoria-metrics/robots.txt
+share/doc/victoria-metrics/vmagent.md
+share/doc/victoria-metrics/vmagent.png
+share/doc/victoria-metrics/vmalert.md
+share/doc/victoria-metrics/vmauth.md
+share/doc/victoria-metrics/vmbackup.md
+share/doc/victoria-metrics/vmrestore.md
+@dir(%%VICTORIA_USER%%,%%VICTORIA_GROUP%%,) %%VICTORIA_DATA%%
