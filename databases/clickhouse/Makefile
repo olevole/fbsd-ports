@@ -116,10 +116,11 @@ expect_CMD=		${LOCALBASE}/bin/expect
 USE_RC_SUBR=	${PORTNAME}
 SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
 		tests/clickhouse-test \
-		tests/queries/0_stateless/00921_datetime64_compatibility.python \
 		tests/queries/0_stateless/00960_live_view_watch_events_live.py \
+		tests/queries/0_stateless/00962_live_view_periodic_refresh_and_timeout.py \
+		tests/queries/0_stateless/00962_live_view_periodic_refresh_dictionary.py \
+		tests/queries/0_stateless/00962_live_view_periodic_refresh.py \
 		tests/queries/0_stateless/00962_temporary_live_view_watch_live.py \
-		tests/queries/0_stateless/00963_temporary_live_view_watch_live_timeout.py.disabled \
 		tests/queries/0_stateless/00964_live_view_watch_events_heartbeat.py \
 		tests/queries/0_stateless/00965_live_view_watch_heartbeat.py \
 		tests/queries/0_stateless/00966_live_view_watch_events_http.py \
@@ -127,26 +128,62 @@ SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
 		tests/queries/0_stateless/00970_live_view_watch_events_http_heartbeat.py \
 		tests/queries/0_stateless/00971_live_view_watch_http_heartbeat.py \
 		tests/queries/0_stateless/00979_live_view_watch_continuous_aggregates.py \
-		tests/queries/0_stateless/00979_live_view_watch_live_moving_avg.py \
 		tests/queries/0_stateless/00979_live_view_watch_live_with_subquery.py \
 		tests/queries/0_stateless/00979_live_view_watch_live.py \
-		tests/queries/0_stateless/00990_hasToken.python \
-		tests/queries/0_stateless/00991_live_view_watch_http.python \
 		tests/queries/0_stateless/01246_insert_into_watch_live_view.py \
-		tests/queries/0_stateless/01293_client_interactive_vertical_multiline.sh \
-		tests/queries/0_stateless/01293_client_interactive_vertical_singleline.sh \
-		tests/queries/0_stateless/01300_client_save_history_when_terminated.sh \
-		tests/queries/0_stateless/01370_client_autocomplete_word_break_characters.sh \
+		tests/queries/0_stateless/helpers/00900_parquet_create_table_columns.py \
+		tests/queries/0_stateless/helpers/client.py \
+		tests/queries/0_stateless/helpers/httpclient.py \
+		tests/queries/0_stateless/helpers/httpechoserver.py \
+		tests/queries/0_stateless/helpers/httpexpect.py \
+		tests/queries/0_stateless/helpers/protobuf_length_delimited_encoder.py \
+		tests/queries/0_stateless/helpers/pure_http_client.py \
+		tests/queries/0_stateless/helpers/shell.py \
+		tests/queries/0_stateless/helpers/uexpect.py \
 		utils/build/build_debian_shared.sh \
 		utils/build/build_debian_unbundled_split.sh \
 		utils/build/build_debian_unbundled.sh \
+		utils/build/build_debian.sh \
+		utils/build/build_freebsd.sh \
+		utils/build/build_macos.sh \
 		utils/build/build_minimal.sh \
-		utils/clickhouse-docker \
+		utils/build/build_no_submodules.sh \
+		utils/check-style/check-duplicate-includes.sh \
+		utils/check-style/check-ungrouped-includes.sh \
+		utils/check-style/format.sh \
+		utils/check-style/shellcheck-run.sh \
+		utils/ci/build-clang-from-sources.sh \
+		utils/ci/build-debian-packages.sh \
+		utils/ci/build-gcc-from-sources.sh \
+		utils/ci/build-normal.sh \
+		utils/ci/check-docker.sh \
+		utils/ci/check-syntax.sh \
+		utils/ci/check-tzdata-updates.sh \
+		utils/ci/create-sources-tarball.sh \
+		utils/ci/docker-multiarch/update.sh \
+		utils/ci/get-sources.sh \
+		utils/ci/install-compiler-from-packages.sh \
+		utils/ci/install-compiler-from-sources.sh \
+		utils/ci/install-libraries.sh \
+		utils/ci/install-os-packages.sh \
+		utils/ci/jobs/quick-build/run.sh \
+		utils/ci/prepare-docker-image-ubuntu.sh \
+		utils/ci/prepare-toolchain.sh \
+		utils/ci/prepare-vagrant-image-freebsd.sh \
+		utils/ci/run-clickhouse-from-binaries.sh \
+		utils/ci/run-with-docker.sh \
+		utils/ci/run-with-vagrant.sh \
+		utils/compressor/test.sh \
+		utils/durability-test/durability-test.sh \
+		utils/durability-test/install.sh \
 		utils/generate-ya-make/generate-ya-make.sh \
+		utils/link-validate/link-validate.sh \
 		utils/list-licenses/list-licenses.sh \
 		utils/list-versions/list-versions.sh \
+		utils/release/release_lib.sh \
 		utils/simple-backport/backport.sh \
-		utils/simple-backport/changelog.sh
+		utils/simple-backport/changelog.sh \
+		utils/clickhouse-docker
 
 CMAKE_ARGS=	-DNO_WERROR=1 \
 		-DUSE_INTERNAL_PROTOBUF_LIBRARY=FALSE
