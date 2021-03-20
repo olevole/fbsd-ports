@@ -186,7 +186,9 @@ SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
 		utils/clickhouse-docker
 
 CMAKE_ARGS=	-DNO_WERROR=1 \
-		-DUSE_INTERNAL_PROTOBUF_LIBRARY=FALSE
+		-DUSE_INTERNAL_PROTOBUF_LIBRARY=FALSE \
+		-DENABLE_EMBEDDED_COMPILER=OFF \
+		-DENABLE_PARQUET=OFF
 
 USERS=		clickhouse
 GROUPS=		clickhouse
