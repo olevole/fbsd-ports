@@ -1,11 +1,10 @@
 # Created by: proler@gmail.com
-# $FreeBSD: head/databases/clickhouse/Makefile 547418 2020-09-03 06:03:40Z lwhsu $
+# $FreeBSD: head/databases/clickhouse/Makefile 562671 2021-01-26 14:01:09Z sunpoet $
 
 PORTNAME=	clickhouse
-PORTVERSION=	20.7.2.30
-PORTREVISION=	1
+PORTVERSION=	21.3.3.14
 DISTVERSIONPREFIX=	v
-DISTVERSIONSUFFIX=	-stable
+DISTVERSIONSUFFIX=	-lts
 CATEGORIES=	databases
 
 MAINTAINER=	olevole@olevole.ru
@@ -28,56 +27,67 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	yandex
 GH_PROJECT=	ClickHouse
 GH_TUPLE=	\
-		CopernicaMarketingSoftware:AMQP-CPP:1c08399:CopernicaMarketingSoftware_AMQP_CPP/contrib/AMQP-CPP \
-		apache:arrow:3cbcb7b:apache_arrow/contrib/arrow \
+		ClickHouse-Extras:AMQP-CPP:03781aa:ClickHouse_Extras_AMQP_CPP/contrib/AMQP-CPP \
+		ClickHouse-Extras:NuRaft:9a0d78d:ClickHouse_Extras_NuRaft/contrib/NuRaft \
+		ClickHouse-Extras:abseil-cpp:4f3b686:ClickHouse_Extras_abseil_cpp/contrib/abseil-cpp \
+		ClickHouse-Extras:antlr4-runtime:a2fa7b7:ClickHouse_Extras_antlr4_runtime/contrib/antlr4-runtime \
+		ClickHouse-Extras:arrow:744bdfe:ClickHouse_Extras_arrow/contrib/arrow \
 		ClickHouse-Extras:avro:92caca2:ClickHouse_Extras_avro/contrib/avro \
-		ClickHouse-Extras:aws-sdk-cpp:17e10c0:ClickHouse_Extras_aws_sdk_cpp/contrib/aws \
+		ClickHouse-Extras:aws-sdk-cpp:7d48b2c:ClickHouse_Extras_aws_sdk_cpp/contrib/aws \
 		ClickHouse-Extras:aws-c-common:736a82d:ClickHouse_Extras_aws_c_common/contrib/aws-c-common \
 		ClickHouse-Extras:aws-c-event-stream:3bc3366:ClickHouse_Extras_aws_c_event_stream/contrib/aws-c-event-stream \
 		ClickHouse-Extras:aws-checksums:519d6d9:ClickHouse_Extras_aws_checksums/contrib/aws-checksums \
 		ClickHouse-Extras:Turbo-Base64:af9b331:ClickHouse_Extras_Turbo_Base64/contrib/base64 \
-		ClickHouse-Extras:boost:a04e72c:ClickHouse_Extras_boost/contrib/boost \
-		google:brotli:5805f99:google_brotli/contrib/brotli \
+		ClickHouse-Extras:boost:ee24fa5:ClickHouse_Extras_boost/contrib/boost \
+		ClickHouse-Extras:boringssl:8b2bf91:ClickHouse_Extras_boringssl/contrib/boringssl \
+		google:brotli:63be8a9:google_brotli/contrib/brotli \
 		capnproto:capnproto:a00ccd9:capnproto_capnproto/contrib/capnproto \
-		ClickHouse-Extras:cpp-driver:a49b4e0:ClickHouse_Extras_cpp_driver/contrib/cassandra \
-		ClickHouse-Extras:cctz:7a2db4e:ClickHouse_Extras_cctz/contrib/cctz \
+		ClickHouse-Extras:cpp-driver:b446d7e:ClickHouse_Extras_cpp_driver/contrib/cassandra \
+		ClickHouse-Extras:cctz:c0f1bcb:ClickHouse_Extras_cctz/contrib/cctz \
 		mfontanini:cppkafka:b06e64e:mfontanini_cppkafka/contrib/cppkafka \
+		RoaringBitmap:CRoaring:d840293:RoaringBitmap_CRoaring/contrib/croaring \
 		curl:curl:3b8bbbb:curl_curl/contrib/curl \
+		ClickHouse-Extras:cyrus-sasl:9995bf9:ClickHouse_Extras_cyrus_sasl/contrib/cyrus-sasl \
 		google:double-conversion:cf2f0f3:google_double_conversion/contrib/double-conversion \
+		ClickHouse-Extras:dragonbox:923705a:ClickHouse_Extras_dragonbox/contrib/dragonbox \
+		fastfloat:fast_float:7eae925:fastfloat_fast_float/contrib/fast_float \
 		ClickHouse-Extras:fastops:88752a5:ClickHouse_Extras_fastops/contrib/fastops \
 		google:flatbuffers:6df40a2:google_flatbuffers/contrib/flatbuffers \
 		fmtlib:fmt:c108ee1:fmtlib_fmt/contrib/fmtlib \
 		kthohr:gcem:8d4f1b5:kthohr_gcem/contrib/gcem \
 		google:googletest:356f2d2:google_googletest/contrib/googletest \
-		ClickHouse-Extras:grpc:8aea4e1:ClickHouse_Extras_grpc/contrib/grpc \
-		uber:h3:6cfd649:uber_h3/contrib/h3 \
-		ClickHouse-Extras:hyperscan:3907fd0:ClickHouse_Extras_hyperscan/contrib/hyperscan \
+		ClickHouse-Extras:grpc:7436366:ClickHouse_Extras_grpc/contrib/grpc \
+		ClickHouse-Extras:h3:e209086:ClickHouse_Extras_h3/contrib/h3 \
+		ClickHouse-Extras:hyperscan:e9f08df:ClickHouse_Extras_hyperscan/contrib/hyperscan \
 		unicode-org:icu:faa2f9f:unicode_org_icu/contrib/icu \
 		ClickHouse-Extras:icudata:f020820:ClickHouse_Extras_icudata/contrib/icudata \
-		jemalloc:jemalloc:ea6b3e9:jemalloc_jemalloc/contrib/jemalloc \
-		ClickHouse-Extras:libc-headers:92c74f9:ClickHouse_Extras_libc_headers/contrib/libc-headers \
+		ClickHouse-Extras:jemalloc:e6891d9:ClickHouse_Extras_jemalloc/contrib/jemalloc \
+		ClickHouse-Extras:krb5:5149dea:ClickHouse_Extras_krb5/contrib/krb5 \
+		ClickHouse-Extras:libc-headers:a720b71:ClickHouse_Extras_libc_headers/contrib/libc-headers \
 		ClickHouse-Extras:libcpuid:8db3b8d:ClickHouse_Extras_libcpuid/contrib/libcpuid \
-		ClickHouse-Extras:libcxx:9f71e12:ClickHouse_Extras_libcxx/contrib/libcxx \
-		ClickHouse-Extras:libcxxabi:1ebc83a:ClickHouse_Extras_libcxxabi/contrib/libcxxabi \
-		ClickHouse-Extras:libgsasl:140fb58:ClickHouse_Extras_libgsasl/contrib/libgsasl \
-		ClickHouse-Extras:libhdfs3:1b66657:ClickHouse_Extras_libhdfs3/contrib/libhdfs3 \
-		ClickHouse-Extras:librdkafka:2090cbf:ClickHouse_Extras_librdkafka/contrib/librdkafka \
-		ClickHouse-Extras:libunwind:27026ef:ClickHouse_Extras_libunwind/contrib/libunwind \
-		ClickHouse-Extras:libuv:8443830:ClickHouse_Extras_libuv/contrib/libuv \
+		ClickHouse-Extras:libcxx:8b80a15:ClickHouse_Extras_libcxx/contrib/libcxx \
+		ClickHouse-Extras:libcxxabi:df8f1e7:ClickHouse_Extras_libcxxabi/contrib/libcxxabi \
+		ClickHouse-Extras:libgsasl:383ee28:ClickHouse_Extras_libgsasl/contrib/libgsasl \
+		ClickHouse-Extras:libhdfs3:095b9d4:ClickHouse_Extras_libhdfs3/contrib/libhdfs3 \
+		ClickHouse-Extras:libpq:1f9c286:ClickHouse_Extras_libpq/contrib/libpq \
+		jtv:libpqxx:58d2a02:jtv_libpqxx/contrib/libpqxx \
+		ClickHouse-Extras:librdkafka:cf11d0a:ClickHouse_Extras_librdkafka/contrib/librdkafka \
+		ClickHouse-Extras:libunwind:8fe25d7:ClickHouse_Extras_libunwind/contrib/libunwind \
+		ClickHouse-Extras:libuv:e2e9b7e:ClickHouse_Extras_libuv/contrib/libuv \
 		GNOME:libxml2:18890f4:GNOME_libxml2/contrib/libxml2 \
-		ClickHouse-Extras:llvm:3d6c7e9:ClickHouse_Extras_llvm/contrib/llvm \
+		ClickHouse-Extras:llvm:8f24d50:ClickHouse_Extras_llvm/contrib/llvm \
 		lz4:lz4:f39b79f:lz4_lz4/contrib/lz4 \
-		ClickHouse-Extras:mariadb-connector-c:3f512fe:ClickHouse_Extras_mariadb_connector_c/contrib/mariadb-connector-c \
+		ClickHouse-Extras:mariadb-connector-c:21f451d:ClickHouse_Extras_mariadb_connector_c/contrib/mariadb-connector-c \
+		danlark1:miniselect:be0af6b:danlark1_miniselect/contrib/miniselect \
 		msgpack:msgpack-c:4668426:msgpack_msgpack_c/contrib/msgpack-c \
-		openldap:openldap:34b9ba9:openldap_openldap/contrib/openldap \
-		ClickHouse-Extras:openssl:07e9623:ClickHouse_Extras_openssl/contrib/openssl \
+		ClickHouse-Extras:openldap:0208811:ClickHouse_Extras_openldap/contrib/openldap \
 		apache:orc:5981208:apache_orc/contrib/orc \
-		ClickHouse-Extras:poco:74c9344:ClickHouse_Extras_poco/contrib/poco \
-		ClickHouse-Extras:protobuf:d6a10dd:ClickHouse_Extras_protobuf/contrib/protobuf \
+		ClickHouse-Extras:poco:c55b91f:ClickHouse_Extras_poco/contrib/poco \
+		ClickHouse-Extras:protobuf:73b1281:ClickHouse_Extras_protobuf/contrib/protobuf \
 		ClickHouse-Extras:rapidjson:c4ef90c:ClickHouse_Extras_rapidjson/contrib/rapidjson \
 		google:re2:7cf8b88:google_re2/contrib/re2 \
-		ClickHouse-Extras:replxx:94b1f56:ClickHouse_Extras_replxx/contrib/replxx \
-		ClickHouse-Extras:ryu:5b4a853:ClickHouse_Extras_ryu/contrib/ryu \
+		ClickHouse-Extras:replxx:cdb6e3f:ClickHouse_Extras_replxx/contrib/replxx \
+		ClickHouse-Extras:rocksdb:54a0dec:ClickHouse_Extras_rocksdb/contrib/rocksdb \
 		ClickHouse-Extras:sentry-native:94644e9:ClickHouse_Extras_sentry_native/contrib/sentry-native \
 		ClickHouse-Extras:simdjson:3190d66:ClickHouse_Extras_simdjson/contrib/simdjson \
 		google:snappy:3f194ac:google_snappy/contrib/snappy \
@@ -85,10 +95,11 @@ GH_TUPLE=	\
 		kthohr:stats:b6dd459:kthohr_stats/contrib/stats \
 		apache:thrift:010ccf0:apache_thrift/contrib/thrift \
 		ClickHouse-Extras:UnixODBC:b0ad30f:ClickHouse_Extras_UnixODBC/contrib/unixodbc \
-		ClickHouse-Extras:zlib-ng:bba56a7:ClickHouse_Extras_zlib_ng/contrib/zlib-ng \
+		xz-mirror:xz:869b9d1:xz_mirror_xz/contrib/xz \
+		ClickHouse-Extras:zlib-ng:6fd1846:ClickHouse_Extras_zlib_ng/contrib/zlib-ng \
 		facebook:zstd:10f0e69:facebook_zstd/contrib/zstd \
-		apache:parquet-testing:46c9e97:apache_parquet_testing/contrib/arrow/cpp/submodules/parquet-testing \
-		apache:arrow-testing:3772a1b:apache_arrow_testing/contrib/arrow/testing \
+		apache:parquet-testing:d914f9d:apache_parquet_testing/contrib/arrow/cpp/submodules/parquet-testing \
+		apache:arrow-testing:860376d:apache_arrow_testing/contrib/arrow/testing \
 		hillbig:esaxx:ca7cb33:hillbig_esaxx/contrib/brotli/research/esaxx \
 		y-256:libdivsufsort:5f60d6f:y_256_libdivsufsort/contrib/brotli/research/libdivsufsort \
 		catchorg:Catch2:d2d8455:catchorg_Catch2/contrib/cppkafka/third_party/Catch2 \
