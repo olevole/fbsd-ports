@@ -116,11 +116,13 @@ expect_CMD=		${LOCALBASE}/bin/expect
 USE_RC_SUBR=	${PORTNAME}
 SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
 		tests/clickhouse-test \
+		tests/config/install.sh \
 		tests/queries/0_stateless/00960_live_view_watch_events_live.py \
+		tests/queries/0_stateless/00962_live_view_periodic_refresh.py \
 		tests/queries/0_stateless/00962_live_view_periodic_refresh_and_timeout.py \
 		tests/queries/0_stateless/00962_live_view_periodic_refresh_dictionary.py \
-		tests/queries/0_stateless/00962_live_view_periodic_refresh.py \
 		tests/queries/0_stateless/00962_temporary_live_view_watch_live.py \
+		tests/queries/0_stateless/00963_temporary_live_view_watch_live_timeout.py.disabled \
 		tests/queries/0_stateless/00964_live_view_watch_events_heartbeat.py \
 		tests/queries/0_stateless/00965_live_view_watch_heartbeat.py \
 		tests/queries/0_stateless/00966_live_view_watch_events_http.py \
@@ -128,9 +130,23 @@ SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
 		tests/queries/0_stateless/00970_live_view_watch_events_http_heartbeat.py \
 		tests/queries/0_stateless/00971_live_view_watch_http_heartbeat.py \
 		tests/queries/0_stateless/00979_live_view_watch_continuous_aggregates.py \
-		tests/queries/0_stateless/00979_live_view_watch_live_with_subquery.py \
 		tests/queries/0_stateless/00979_live_view_watch_live.py \
+		tests/queries/0_stateless/00979_live_view_watch_live_moving_avg.py.disabled \
+		tests/queries/0_stateless/00979_live_view_watch_live_with_subquery.py \
+		tests/queries/0_stateless/00991_live_view_watch_http.python \
+		tests/queries/0_stateless/01176_mysql_client_interactive.expect \
+		tests/queries/0_stateless/01179_insert_values_semicolon.expect \
+		tests/queries/0_stateless/01180_client_syntax_errors.expect \
 		tests/queries/0_stateless/01246_insert_into_watch_live_view.py \
+		tests/queries/0_stateless/01293_client_interactive_vertical_multiline.expect \
+		tests/queries/0_stateless/01293_client_interactive_vertical_singleline.expect \
+		tests/queries/0_stateless/01300_client_save_history_when_terminated.expect \
+		tests/queries/0_stateless/01370_client_autocomplete_word_break_characters.expect \
+		tests/queries/0_stateless/01520_client_print_query_id.expect \
+		tests/queries/0_stateless/01526_client_start_and_exit.expect-not-a-test-case \
+		tests/queries/0_stateless/01565_reconnect_after_client_error.expect \
+		tests/queries/0_stateless/01599_multiline_input_and_singleline_comments.sh \
+		tests/queries/0_stateless/01610_client_spawn_editor.sh \
 		tests/queries/0_stateless/helpers/00900_parquet_create_table_columns.py \
 		tests/queries/0_stateless/helpers/client.py \
 		tests/queries/0_stateless/helpers/httpclient.py \
@@ -140,10 +156,10 @@ SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
 		tests/queries/0_stateless/helpers/pure_http_client.py \
 		tests/queries/0_stateless/helpers/shell.py \
 		tests/queries/0_stateless/helpers/uexpect.py \
-		utils/build/build_debian_shared.sh \
-		utils/build/build_debian_unbundled_split.sh \
-		utils/build/build_debian_unbundled.sh \
 		utils/build/build_debian.sh \
+		utils/build/build_debian_shared.sh \
+		utils/build/build_debian_unbundled.sh \
+		utils/build/build_debian_unbundled_split.sh \
 		utils/build/build_freebsd.sh \
 		utils/build/build_macos.sh \
 		utils/build/build_minimal.sh \
@@ -173,6 +189,7 @@ SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
 		utils/ci/run-clickhouse-from-binaries.sh \
 		utils/ci/run-with-docker.sh \
 		utils/ci/run-with-vagrant.sh \
+		utils/clickhouse-docker \
 		utils/compressor/test.sh \
 		utils/durability-test/durability-test.sh \
 		utils/durability-test/install.sh \
@@ -182,13 +199,12 @@ SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
 		utils/list-versions/list-versions.sh \
 		utils/release/release_lib.sh \
 		utils/simple-backport/backport.sh \
-		utils/simple-backport/changelog.sh \
-		utils/clickhouse-docker
+		utils/simple-backport/changelog.sh
 
 CMAKE_ARGS=	-DNO_WERROR=1 \
 		-DENABLE_EMBEDDED_COMPILER=OFF \
 		-DENABLE_PARQUET=OFF \
-		-DENABLE_UTILS=0 \
+		-DENABLE_UTILS=ON \
 		-DCMAKE_CXX_STANDARD=20
 
 USERS=		clickhouse

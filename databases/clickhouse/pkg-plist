@@ -1,7 +1,18 @@
 bin/clickhouse
+bin/clickhouse-benchmark
+bin/clickhouse-client
+bin/clickhouse-copier
+bin/clickhouse-extract-from-config
+bin/clickhouse-format
+bin/clickhouse-git-import
+bin/clickhouse-local
+bin/clickhouse-obfuscator
 bin/clickhouse-odbc-bridge
 bin/clickhouse-report
+bin/clickhouse-server
 bin/clickhouse-test
+bin/clickhouse-zookeeper-cli
+bin/zk-test
 cmake/global-release.cmake
 cmake/global.cmake
 @dir(clickhouse,,) %%ETCDIR%%-server
