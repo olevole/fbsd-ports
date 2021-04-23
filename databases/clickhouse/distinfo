@@ -1,6 +1,6 @@
-TIMESTAMP = 1616258573
-SHA256 (yandex-ClickHouse-v21.3.3.14-lts_GH0.tar.gz) = c1f9ff4c4309774a53bc75e760ef6bfc05d940ae81d476d6a5e611e8e70d9177
-SIZE (yandex-ClickHouse-v21.3.3.14-lts_GH0.tar.gz) = 27484454
+TIMESTAMP = 1619124342
+SHA256 (yandex-ClickHouse-v21.3.6.55-lts_GH0.tar.gz) = 7111c3b29424286c96890dbc4e01b5cbd465ce48d4abc8e810b851a19429c5fe
+SIZE (yandex-ClickHouse-v21.3.6.55-lts_GH0.tar.gz) = 46452595
 SHA256 (ClickHouse-Extras-AMQP-CPP-03781aa_GH0.tar.gz) = 18772fbd31740df6953ec6484c4f58455934bba61e77d491b88dc0fc6c9a2071
 SIZE (ClickHouse-Extras-AMQP-CPP-03781aa_GH0.tar.gz) = 147162
 SHA256 (ClickHouse-Extras-NuRaft-9a0d78d_GH0.tar.gz) = e0aed33577b6729c1851d60069fc7a6ee1971c428c656e833fced909fff93831

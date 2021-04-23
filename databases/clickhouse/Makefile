@@ -1,8 +1,7 @@
 # Created by: proler@gmail.com
-# $FreeBSD: head/databases/clickhouse/Makefile 562671 2021-01-26 14:01:09Z sunpoet $
 
 PORTNAME=	clickhouse
-PORTVERSION=	21.3.3.14
+PORTVERSION=	21.3.6.55
 DISTVERSIONPREFIX=	v
 DISTVERSIONSUFFIX=	-lts
 CATEGORIES=	databases
@@ -16,12 +15,13 @@ ONLY_FOR_ARCHS=	amd64
 ONLY_FOR_ARCHS_REASON=	"Only supported on amd64"
 
 BUILD_DEPENDS=	bash:shells/bash \
-		clang++90:devel/llvm90
-LIB_DEPENDS=	libprotobuf.so:devel/protobuf
+		clang++11:devel/llvm11
 RUN_DEPENDS=	bash:shells/bash
 
 USES=		cmake:insource python localbase shebangfix
-CXX=		clang++90
+
+CXX=		clang++11
+CC=		clang11
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	yandex
@@ -186,9 +186,10 @@ SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
 		utils/clickhouse-docker
 
 CMAKE_ARGS=	-DNO_WERROR=1 \
-		-DUSE_INTERNAL_PROTOBUF_LIBRARY=FALSE \
 		-DENABLE_EMBEDDED_COMPILER=OFF \
-		-DENABLE_PARQUET=OFF
+		-DENABLE_PARQUET=OFF \
+		-DENABLE_UTILS=0 \
+		-DCMAKE_CXX_STANDARD=20
 
 USERS=		clickhouse
 GROUPS=		clickhouse
