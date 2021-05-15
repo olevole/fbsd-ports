@@ -4,6 +4,7 @@ PORTNAME=	clickhouse
 PORTVERSION=	21.3.6.55
 DISTVERSIONPREFIX=	v
 DISTVERSIONSUFFIX=	-lts
+PORTREVISION=	1
 CATEGORIES=	databases
 
 MAINTAINER=	olevole@olevole.ru
@@ -18,16 +19,12 @@ BUILD_DEPENDS=	bash:shells/bash \
 		clang++11:devel/llvm11
 RUN_DEPENDS=	bash:shells/bash
 
-USES=		cmake:insource python localbase shebangfix
-
-CXX=		clang++11
-CC=		clang11
+USES=		cmake:insource localbase python shebangfix
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	yandex
 GH_PROJECT=	ClickHouse
-GH_TUPLE=	\
-		ClickHouse-Extras:AMQP-CPP:03781aa:ClickHouse_Extras_AMQP_CPP/contrib/AMQP-CPP \
+GH_TUPLE=	ClickHouse-Extras:AMQP-CPP:03781aa:ClickHouse_Extras_AMQP_CPP/contrib/AMQP-CPP \
 		ClickHouse-Extras:NuRaft:9a0d78d:ClickHouse_Extras_NuRaft/contrib/NuRaft \
 		ClickHouse-Extras:abseil-cpp:4f3b686:ClickHouse_Extras_abseil_cpp/contrib/abseil-cpp \
 		ClickHouse-Extras:antlr4-runtime:a2fa7b7:ClickHouse_Extras_antlr4_runtime/contrib/antlr4-runtime \
@@ -109,14 +106,10 @@ GH_TUPLE=	\
 		google:googletest:ba96d0b:google_googletest/contrib/rapidjson/thirdparty/gtest \
 		jarro2783:cxxopts:794c975:jarro2783_cxxopts/contrib/simdjson/dependencies/cxxopts
 
-SHEBANG_LANG=		expect
-expect_OLD_CMD=		/usr/bin/expect
-expect_CMD=		${LOCALBASE}/bin/expect
-
 USE_RC_SUBR=	${PORTNAME}
+
 SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
-		tests/clickhouse-test \
-		tests/config/install.sh \
+		tests/clickhouse-test tests/config/install.sh \
 		tests/queries/0_stateless/00960_live_view_watch_events_live.py \
 		tests/queries/0_stateless/00962_live_view_periodic_refresh.py \
 		tests/queries/0_stateless/00962_live_view_periodic_refresh_and_timeout.py \
@@ -156,62 +149,57 @@ SHEBANG_FILES=	src/Storages/System/StorageSystemLicenses.sh \
 		tests/queries/0_stateless/helpers/pure_http_client.py \
 		tests/queries/0_stateless/helpers/shell.py \
 		tests/queries/0_stateless/helpers/uexpect.py \
-		utils/build/build_debian.sh \
-		utils/build/build_debian_shared.sh \
+		utils/build/build_debian.sh utils/build/build_debian_shared.sh \
 		utils/build/build_debian_unbundled.sh \
 		utils/build/build_debian_unbundled_split.sh \
-		utils/build/build_freebsd.sh \
-		utils/build/build_macos.sh \
-		utils/build/build_minimal.sh \
-		utils/build/build_no_submodules.sh \
+		utils/build/build_freebsd.sh utils/build/build_macos.sh \
+		utils/build/build_minimal.sh utils/build/build_no_submodules.sh \
 		utils/check-style/check-duplicate-includes.sh \
 		utils/check-style/check-ungrouped-includes.sh \
-		utils/check-style/format.sh \
-		utils/check-style/shellcheck-run.sh \
+		utils/check-style/format.sh utils/check-style/shellcheck-run.sh \
 		utils/ci/build-clang-from-sources.sh \
 		utils/ci/build-debian-packages.sh \
-		utils/ci/build-gcc-from-sources.sh \
-		utils/ci/build-normal.sh \
-		utils/ci/check-docker.sh \
-		utils/ci/check-syntax.sh \
+		utils/ci/build-gcc-from-sources.sh utils/ci/build-normal.sh \
+		utils/ci/check-docker.sh utils/ci/check-syntax.sh \
 		utils/ci/check-tzdata-updates.sh \
 		utils/ci/create-sources-tarball.sh \
-		utils/ci/docker-multiarch/update.sh \
-		utils/ci/get-sources.sh \
+		utils/ci/docker-multiarch/update.sh utils/ci/get-sources.sh \
 		utils/ci/install-compiler-from-packages.sh \
 		utils/ci/install-compiler-from-sources.sh \
-		utils/ci/install-libraries.sh \
-		utils/ci/install-os-packages.sh \
+		utils/ci/install-libraries.sh utils/ci/install-os-packages.sh \
 		utils/ci/jobs/quick-build/run.sh \
 		utils/ci/prepare-docker-image-ubuntu.sh \
 		utils/ci/prepare-toolchain.sh \
 		utils/ci/prepare-vagrant-image-freebsd.sh \
 		utils/ci/run-clickhouse-from-binaries.sh \
-		utils/ci/run-with-docker.sh \
-		utils/ci/run-with-vagrant.sh \
-		utils/clickhouse-docker \
-		utils/compressor/test.sh \
+		utils/ci/run-with-docker.sh utils/ci/run-with-vagrant.sh \
+		utils/clickhouse-docker utils/compressor/test.sh \
 		utils/durability-test/durability-test.sh \
 		utils/durability-test/install.sh \
 		utils/generate-ya-make/generate-ya-make.sh \
 		utils/link-validate/link-validate.sh \
 		utils/list-licenses/list-licenses.sh \
 		utils/list-versions/list-versions.sh \
-		utils/release/release_lib.sh \
-		utils/simple-backport/backport.sh \
+		utils/release/release_lib.sh utils/simple-backport/backport.sh \
 		utils/simple-backport/changelog.sh
+SHEBANG_LANG=	expect
 
-CMAKE_ARGS=	-DNO_WERROR=1 \
+expect_OLD_CMD=	/usr/bin/expect
+expect_CMD=	${LOCALBASE}/bin/expect
+
+CMAKE_ARGS=	-DCMAKE_CXX_STANDARD=20 \
 		-DENABLE_EMBEDDED_COMPILER=OFF \
 		-DENABLE_PARQUET=OFF \
 		-DENABLE_UTILS=ON \
-		-DCMAKE_CXX_STANDARD=20
+		-DNO_WERROR=1
+
+CC=		clang11
+CXX=		clang++11
 
 USERS=		clickhouse
 GROUPS=		clickhouse
 
 # The version stamp of libclickhouse.so doesn't always match ${PORTVERSION}
-SOVERSION=	${PORTVERSION}
 PLIST_SUB=	SOVERSION=${SOVERSION}
 
 OPTIONS_DEFINE=		TEST
@@ -222,10 +210,14 @@ TEST_CMAKE_BOOL=	ENABLE_TESTS
 .include <bsd.port.options.mk>
 
 .if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1200057
-SUB_LIST+=	LEGACY_LIMITS="@comment " MODERN_LIMITS=""
+SUB_LIST+=	LEGACY_LIMITS="@comment " \
+		MODERN_LIMITS=""
 .else
-SUB_LIST+=	LEGACY_LIMITS="" MODERN_LIMITS="@comment "
+SUB_LIST+=	LEGACY_LIMITS="" \
+		MODERN_LIMITS="@comment "
 .endif
+
+SOVERSION=	${PORTVERSION}
 
 .include <bsd.port.pre.mk>
 
