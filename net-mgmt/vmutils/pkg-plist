@@ -16,3 +16,4 @@ bin/vmrestore
 %%PORTDOCS%%%%DOCSDIR%%/vmgateway-rate-limiting.jpg
 %%PORTDOCS%%%%DOCSDIR%%/vmgateway.md
 %%PORTDOCS%%%%DOCSDIR%%/vmrestore.md
+@sample etc/prometheus/prometheus.yml.sample

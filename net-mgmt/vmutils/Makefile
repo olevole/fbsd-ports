@@ -14,6 +14,11 @@ do-install:
 		${STAGEDIR}${PREFIX}/bin/vm${p}
 .endfor
 
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/prometheus
+	${INSTALL_DATA} ${FILESDIR}/prometheus.yml.sample \
+		${STAGEDIR}${PREFIX}/etc/prometheus
+
 do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${INSTALL_WRKSRC}/docs/vm* ${STAGEDIR}${DOCSDIR}
