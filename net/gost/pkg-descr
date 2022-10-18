@@ -1,0 +1,18 @@
+Features
+
+    Listening on multiple ports
+    Multi-level forward proxy - proxy chain
+    Standard HTTP/HTTPS/HTTP2/SOCKS4(A)/SOCKS5 proxy protocols support
+    Probing resistance support for web proxy
+    Support multiple tunnel types
+    TLS encryption via negotiation support for SOCKS5 proxy
+    Tunnel UDP over TCP
+    TCP/UDP Transparent proxy
+    Local/remote TCP/UDP port forwarding
+    Shadowsocks protocol
+    SNI proxy
+    Permission control
+    Load balancing
+    Routing control
+    DNS resolver and proxy
+    TUN/TAP device
